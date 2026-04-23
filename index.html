@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chopatech Cyber System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Orbitron',sans-serif;
+color:#00ffff;
+overflow-x:hidden;
+}
+
+/* BACKGROUND IMAGE */
+body::before{
+content:"";
+position:fixed;
+width:100%;height:100%;
+background:
+linear-gradient(rgba(5,7,13,0.85),rgba(5,7,13,0.95)),
+url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920");
+background-size:cover;
+background-position:center;
+z-index:-3;
+}
+
+/* DIGITAL GRID LINES */
+body::after{
+content:"";
+position:fixed;
+width:200%;height:200%;
+background:repeating-linear-gradient(
+0deg,
+rgba(0,255,255,0.05) 0px,
+rgba(0,255,255,0.05) 1px,
+transparent 1px,
+transparent 40px
+);
+animation:gridMove 10s linear infinite;
+z-index:-2;
+}
+@keyframes gridMove{
+from{transform:translateY(0);}
+to{transform:translateY(40px);}
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(0,255,255,0.2);
+}
+
+nav h1{ text-shadow:0 0 10px #00ffff; }
+
+nav ul{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+nav li{
+cursor:pointer;
+position:relative;
+}
+
+nav li::after{
+content:"";
+position:absolute;
+width:0;height:2px;
+background:#00ffff;
+bottom:-5px;left:0;
+transition:.3s;
+}
+nav li:hover::after{width:100%;}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:140px 20px;
+animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;}
+}
+
+.typing{
+font-size:45px;
+border-right:3px solid #00ffff;
+white-space:nowrap;
+overflow:hidden;
+width:0;
+animation:typing 4s steps(30,end) forwards,blink .8s infinite;
+}
+
+@keyframes typing{to{width:100%;}}
+@keyframes blink{50%{border-color:transparent;}}
+
+/* BUTTON */
+.btn{
+margin-top:30px;
+padding:15px 30px;
+border:1px solid #00ffff;
+background:transparent;
+color:#00ffff;
+cursor:pointer;
+transition:.3s;
+}
+.btn:hover{
+background:#00ffff;
+color:#000;
+box-shadow:0 0 20px #00ffff;
+}
+
+/* CARDS */
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:60px;
+}
+
+.card{
+background:rgba(0,0,0,0.6);
+padding:25px;
+text-align:center;
+border:1px solid rgba(0,255,255,0.2);
+backdrop-filter:blur(10px);
+transition:.4s;
+}
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 20px #00ffff;
+}
+.card i{font-size:30px;margin-bottom:10px;}
+
+/* PORTFOLIO */
+.portfolio{padding:60px;}
+.project{
+background:rgba(0,0,0,0.6);
+padding:20px;
+margin-bottom:15px;
+border-left:3px solid #00ffff;
+transition:.3s;
+}
+.project:hover{
+transform:translateX(10px);
+box-shadow:0 0 15px #00ffff;
+}
+
+/* LOGIN */
+.login{text-align:center;padding:60px;}
+input{
+display:block;
+margin:10px auto;
+padding:12px;
+width:250px;
+background:transparent;
+border:1px solid #00ffff;
+color:#00ffff;
+}
+
+/* DASHBOARD */
+.dashboard{display:none;padding:50px;}
+.widget{
+background:rgba(0,0,0,0.6);
+padding:20px;
+margin:20px 0;
+border:1px solid #00ffff;
+animation:fadeIn 1s ease;
+}
+
+canvas{max-width:100%;}
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>CHOPATECH</h1>
+<ul>
+<li onclick="go('home')">Home</li>
+<li onclick="go('services')">Services</li>
+<li onclick="go('portfolio')">Projects</li>
+<li onclick="go('login')">Login</li>
+</ul>
+</nav>
+
+<section class="hero" id="home">
+<div class="typing">AI • DATA • FUTURE SYSTEM</div>
+<button class="btn" onclick="go('login')">ENTER SYSTEM</button>
+</section>
+
+<section class="services" id="services">
+<div class="card"><i class="fas fa-chart-line"></i><h3>Data Analysis</h3></div>
+<div class="card"><i class="fas fa-laptop-code"></i><h3>Development</h3></div>
+<div class="card"><i class="fas fa-brain"></i><h3>AI Systems</h3></div>
+<div class="card"><i class="fas fa-network-wired"></i><h3>Networking</h3></div>
+</section>
+
+<section class="portfolio" id="portfolio">
+<h2>PROJECTS</h2>
+<div class="project">AI Analytics Dashboard</div>
+<div class="project">Cyberpunk UI System</div>
+<div class="project">Business Intelligence Tool</div>
+</section>
+
+<section class="login" id="login">
+<h2>LOGIN SYSTEM</h2>
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<button class="btn" onclick="enter()">LOGIN</button>
+</section>
+
+<section class="dashboard" id="dashboard">
+<h2>LIVE ANALYTICS</h2>
+
+<div class="widget"><canvas id="lineChart"></canvas></div>
+<div class="widget"><canvas id="barChart"></canvas></div>
+<div class="widget"><canvas id="pieChart"></canvas></div>
+
+</section>
+
+<script>
+function go(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function enter(){
+document.getElementById("dashboard").style.display="block";
+document.getElementById("dashboard").scrollIntoView({behavior:"smooth"});
+}
+
+/* LINE CHART */
+let lineData=[10,20,15,25,30,20,35];
+let lineChart=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:["1","2","3","4","5","6","7"],
+datasets:[{data:lineData,borderColor:"#00ffff"}]},
+options:{animation:false}
+});
+
+setInterval(()=>{
+lineData.shift();
+lineData.push(Math.random()*40);
+lineChart.update();
+},2000);
+
+/* BAR */
+let barChart=new Chart(document.getElementById("barChart"),{
+type:"bar",
+data:{labels:["CPU","RAM","NET"],
+datasets:[{data:[60,70,80],backgroundColor:"#00ffff"}]},
+options:{animation:false}
+});
+
+setInterval(()=>{
+barChart.data.datasets[0].data=[
+Math.random()*100,
+Math.random()*100,
+Math.random()*100];
+barChart.update();
+},3000);
+
+/* PIE */
+let pieChart=new Chart(document.getElementById("pieChart"),{
+type:"pie",
+data:{labels:["Mobile","Desktop","Tablet"],
+datasets:[{data:[50,30,20]}]},
+options:{animation:false}
+});
+
+setInterval(()=>{
+let a=Math.random()*100,b=Math.random()*100,c=Math.random()*100;
+let t=a+b+c;
+pieChart.data.datasets[0].data=[(a/t)*100,(b/t)*100,(c/t)*100];
+pieChart.update();
+},4000);
+</script>
+
+</body>
+</html>
