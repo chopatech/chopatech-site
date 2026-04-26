@@ -1,52 +1,42 @@
-const chatContainer = document.getElementById("chatContainer");
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("userInput");
 
-// Toggle chat
-function toggleChat() {
-  chatContainer.classList.toggle("show");
-}
-
-// Send message
-function sendMessage() {
+async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
-  // User message
-  const userMsg = document.createElement("div");
-  userMsg.className = "user-msg";
-  userMsg.textContent = text;
-  chatBox.appendChild(userMsg);
-
+  // show user message
+  chatBox.innerHTML += `<div class="user-msg">${text}</div>`;
   input.value = "";
 
-  // Auto AI response
-  setTimeout(() => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "bot-msg";
+  // loading indicator
+  const loading = document.createElement("div");
+  loading.className = "bot-msg";
+  loading.textContent = "Thinking...";
+  chatBox.appendChild(loading);
 
-    botMsg.textContent = generateAIResponse(text);
-    chatBox.appendChild(botMsg);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 800);
+  // call backend
+  const res = await fetch("http://localhost:3000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: text })
+  });
+
+  const data = await res.json();
+
+  loading.remove();
+
+  chatBox.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
-
-// Fake AI logic (replace later with OpenAI API)
-function generateAIResponse(input) {
-  input = input.toLowerCase();
-
-  if (input.includes("hello")) {
-    return "Hello! How can I assist you today?";
-  }
-
-  if (input.includes("chopatech")) {
-    return "ChopaTech is a futuristic AI & digital innovation company.";
-  }
-
-  if (input.includes("services")) {
-    return "We offer AI development, web design, and networking systems.";
-  }
-
-  return "I'm analyzing your request... please connect me to a real AI API for advanced responses.";
+function typeEffect(element, text) {
+  let i = 0;
+  element.textContent = "";
+  const interval = setInterval(() => {
+    element.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, 20);
 }
