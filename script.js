@@ -17,8 +17,8 @@ async function sendMessage() {
 
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // call backend
-  const res = await fetch("http://localhost:3000/chat", {
+  // call backend - uses relative path for both local and production
+  const res = await fetch("/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: text })
