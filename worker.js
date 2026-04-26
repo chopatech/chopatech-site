@@ -1,20 +1,20 @@
 export default {
   async fetch(request, env, ctx) {
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    };
-
-    // Handle CORS preflight
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders });
-    }
-
     const url = new URL(request.url);
 
-    // Chat endpoint
+    // Chat API endpoint
     if (url.pathname === "/chat" && request.method === "POST") {
+      const corsHeaders = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      };
+
+      // Handle CORS preflight
+      if (request.method === "OPTIONS") {
+        return new Response(null, { headers: corsHeaders });
+      }
+
       try {
         const { message } = await request.json();
 
@@ -35,12 +35,12 @@ export default {
       } catch (error) {
         return new Response(JSON.stringify({ error: "AI request failed" }), {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" }
         });
       }
     }
 
-    // Default response
-    return new Response("ChopaTech AI Worker", { headers: corsHeaders });
+    // Let Cloudflare Sites handle static files
+    return new Response("Not found", { status: 404 });
   }
 };
