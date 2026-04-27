@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Smart Wi-Fi Portal | ChopaTech</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+<div class="logo">CHOPATECH</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="tutorials.html">Tutorials</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<section class="page-hero wifi-hero">
+<h1>Smart Wi-Fi Portal</h1>
+<p>Advanced wireless network management and user authentication.</p>
+</section>
+
+<section class="wifi-overview reveal">
+<div class="overview-content">
+<h2>Intelligent Network Management</h2>
+<p>A comprehensive Wi-Fi portal solution for businesses, cafes, hotels, and public spaces with captive portal, bandwidth control, and user management.</p>
+</div>
+</section>
+
+<section class="network-status reveal">
+<h2>Network Status</h2>
+<div class="status-dashboard">
+<div class="status-card live">
+<span class="status-indicator"></span>
+<div class="status-info">
+<h3>Main Network</h3>
+<p>5GHz - Excellent</p>
+</div>
+<span class="status-speed">867 Mbps</span>
+</div>
+
+<div class="status-card live">
+<span class="status-indicator"></span>
+<div class="status-info">
+<h3>Guest Network</h3>
+<p>2.4GHz - Good</p>
+</div>
+<span class="status-speed">300 Mbps</span>
+</div>
+
+<div class="status-card offline">
+<span class="status-indicator"></span>
+<div class="status-info">
+<h3>IoT Network</h3>
+<p>2.4GHz - Standby</p>
+</div>
+<span class="status-speed">72 Mbps</span>
+</div>
+</div>
+</section>
+
+<section class="connected-users reveal">
+<h2>Connected Users</h2>
+<div class="users-table">
+<div class="table-header">
+<span>Device</span>
+<span>User</span>
+<span>Connection</span>
+<span>Data Used</span>
+<span>Time</span>
+</div>
+<div class="table-row">
+<span class="device-icon">📱</span>
+<span>John's iPhone</span>
+<span class="conn-good">5GHz</span>
+<span>245 MB</span>
+<span>2h 15m</span>
+</div>
+<div class="table-row">
+<span class="device-icon">💻</span>
+<span>Sarah's MacBook</span>
+<span class="conn-good">5GHz</span>
+<span>1.2 GB</span>
+<span>4h 30m</span>
+</div>
+<div class="table-row">
+<span class="device-icon">📱</span>
+<span>Guest-2341</span>
+<span class="conn-fair">2.4GHz</span>
+<span>89 MB</span>
+<span>45m</span>
+</div>
+<div class="table-row">
+<span class="device-icon">📺</span>
+<span>Smart TV</span>
+<span class="conn-good">5GHz</span>
+<span>3.4 GB</span>
+<span>6h 20m</span>
+</div>
+<div class="table-row">
+<span class="device-icon">💻</span>
+<span>Guest-8923</span>
+<span class="conn-fair">2.4GHz</span>
+<span>156 MB</span>
+<span>1h 10m</span>
+</div>
+</div>
+</section>
+
+<section class="portal-features reveal">
+<h2>Portal Features</h2>
+<div class="features-grid">
+<div class="feature-card">
+<span class="feature-icon">🔐</span>
+<h3>Captive Portal</h3>
+<p>Custom login pages with social media authentication.</p>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">📊</span>
+<h3>Bandwidth Control</h3>
+<p>Set speed limits per user or device.</p>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">⏰</span>
+<h3>Time Limits</h3>
+<p>Configure session durations and access schedules.</p>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">📍</span>
+<h3>Location Analytics</h3>
+<p>Track user locations and foot traffic.</p>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">🛡️</span>
+<h3>Content Filter</h3>
+<p>Block inappropriate content and websites.</p>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">📈</span>
+<h3>Usage Reports</h3>
+<p>Detailed analytics and reporting dashboard.</p>
+</div>
+</div>
+</section>
+
+<section class="bandwidth-manager reveal">
+<h2>Bandwidth Manager</h2>
+<div class="bandwidth-grid">
+<div class="bandwidth-card">
+<h3>Download</h3>
+<div class="speed-control">
+<button onclick="adjustSpeed('download', -10)">-</button>
+<span id="downloadSpeed">100</span>
+<button onclick="adjustSpeed('download', 10)">+</button>
+<span class="unit">Mbps</span>
+</div>
+</div>
+
+<div class="bandwidth-card">
+<h3>Upload</h3>
+<div class="speed-control">
+<button onclick="adjustSpeed('upload', -10)">-</button>
+<span id="uploadSpeed">50</span>
+<button onclick="adjustSpeed('upload', 10)">+</button>
+<span class="unit">Mbps</span>
+</div>
+</div>
+
+<div class="bandwidth-card">
+<h3>Total Users</h3>
+<div class="user-limit">
+<span class="limit-num">5</span>
+<span class="limit-text">/ 50 concurrent</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="quick-actions reveal">
+<h2>Quick Actions</h2>
+<div class="actions-grid">
+<button class="action-btn" onclick="toggleNetwork('main')">
+<span>📶</span> Toggle Main Network
+</button>
+<button class="action-btn" onclick="toggleNetwork('guest')">
+<span>👥</span> Toggle Guest Network
+</button>
+<button class="action-btn" onclick="blockUser()">
+<span>🚫</span> Block User
+</button>
+<button class="action-btn" onclick="resetPortal()">
+<span>🔄</span> Reset Portal
+</button>
+<button class="action-btn" onclick="exportLogs()">
+<span>📥</span> Export Logs
+</button>
+<button class="action-btn" onclick="alert('Settings saved!')">
+<span>💾</span> Save Settings
+</button>
+</div>
+</section>
+
+<section class="cta-section reveal">
+<h2>Deploy Your Smart Wi-Fi Network</h2>
+<p>Get a customized Wi-Fi portal solution for your business.</p>
+<a href="contact.html" class="btn">Contact Us</a>
+</section>
+
+<footer>
+<p>&copy; 2026 ChopaTech. All rights reserved.</p>
+</footer>
+
+<script>
+function adjustSpeed(type, change) {
+const element = document.getElementById(type + 'Speed');
+let current = parseInt(element.textContent);
+current = Math.max(10, Math.min(500, current + change));
+element.textContent = current;
+}
+
+function toggleNetwork(network) {
+alert(network.charAt(0).toUpperCase() + network.slice(1) + ' network toggled!');
+}
+
+function blockUser() {
+alert('User blocking interface - Select a user to block');
+}
+
+function resetPortal() {
+if (confirm('Reset portal to default settings?')) {
+alert('Portal reset successful!');
+}
+}
+
+function exportLogs() {
+alert('Exporting network logs...');
+}
+</script>
+
+<style>
+.wifi-hero {
+background: linear-gradient(135deg, #0a2e1a 0%, #1a4a2e 100%);
+}
+
+.wifi-overview {
+text-align: center;
+padding: 50px 5%;
+background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+}
+
+.overview-content h2 {
+color: #00d4ff;
+font-size: 32px;
+margin-bottom: 15px;
+}
+
+.overview-content p {
+color: rgba(255, 255, 255, 0.8);
+max-width: 700px;
+margin: 0 auto;
+font-size: 18px;
+}
+
+.network-status {
+padding: 50px 5%;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.network-status h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.status-dashboard {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.status-card {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+}
+
+.status-indicator {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+margin-right: 15px;
+}
+
+.status-card.live .status-indicator {
+background: #00ff88;
+box-shadow: 0 0 10px #00ff88;
+}
+
+.status-card.offline .status-indicator {
+background: #ff4444;
+}
+
+.status-info h3 {
+color: #fff;
+margin-bottom: 5px;
+font-size: 16px;
+}
+
+.status-info p {
+color: rgba(255, 255, 255, 0.6);
+font-size: 14px;
+}
+
+.status-speed {
+color: #00d4ff;
+font-size: 20px;
+font-weight: bold;
+}
+
+.connected-users {
+padding: 50px 5%;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.connected-users h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.users-table {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+overflow: hidden;
+}
+
+.table-header {
+display: grid;
+grid-template-columns: 50px 1fr 100px 100px 100px;
+padding: 15px 20px;
+background: rgba(0, 0, 0, 0.3);
+color: #00d4ff;
+font-weight: bold;
+font-size: 14px;
+}
+
+.table-row {
+display: grid;
+grid-template-columns: 50px 1fr 100px 100px 100px;
+padding: 15px 20px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+align-items: center;
+color: #fff;
+font-size: 14px;
+}
+
+.table-row:last-child {
+border-bottom: none;
+}
+
+.table-row:hover {
+background: rgba(0, 212, 255, 0.05);
+}
+
+.device-icon {
+font-size: 20px;
+}
+
+.conn-good {
+color: #00ff88;
+}
+
+.conn-fair {
+color: #ffa500;
+}
+
+.portal-features {
+padding: 50px 5%;
+max-width: 1400px;
+margin: 0 auto;
+}
+
+.portal-features h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 40px;
+}
+
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 25px;
+}
+
+.feature-card {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 30px;
+text-align: center;
+transition: all 0.3s;
+}
+
+.feature-card:hover {
+transform: translateY(-5px);
+border-color: #00d4ff;
+}
+
+.feature-icon {
+font-size: 40px;
+display: block;
+margin-bottom: 15px;
+}
+
+.feature-card h3 {
+color: #00d4ff;
+margin-bottom: 10px;
+}
+
+.feature-card p {
+color: rgba(255, 255, 255, 0.7);
+font-size: 14px;
+}
+
+.bandwidth-manager {
+padding: 50px 5%;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.bandwidth-manager h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.bandwidth-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 25px;
+}
+
+.bandwidth-card {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 30px;
+text-align: center;
+}
+
+.bandwidth-card h3 {
+color: #fff;
+margin-bottom: 20px;
+}
+
+.speed-control {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 15px;
+}
+
+.speed-control button {
+width: 40px;
+height: 40px;
+background: #00d4ff;
+border: none;
+border-radius: 8px;
+color: #000;
+font-size: 20px;
+cursor: pointer;
+transition: transform 0.2s;
+}
+
+.speed-control button:hover {
+transform: scale(1.1);
+}
+
+.speed-control span {
+font-size: 32px;
+font-weight: bold;
+color: #00d4ff;
+min-width: 60px;
+}
+
+.unit {
+color: rgba(255, 255, 255, 0.6);
+font-size: 14px;
+}
+
+.user-limit {
+text-align: center;
+}
+
+.limit-num {
+font-size: 48px;
+font-weight: bold;
+color: #00d4ff;
+}
+
+.limit-text {
+color: rgba(255, 255, 255, 0.6);
+}
+
+.quick-actions {
+padding: 50px 5%;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.quick-actions h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.actions-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+}
+
+.action-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+padding: 15px 20px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+color: #fff;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.action-btn:hover {
+background: rgba(0, 212, 255, 0.1);
+border-color: #00d4ff;
+}
+
+.action-btn span {
+font-size: 20px;
+}
+
+.cta-section {
+text-align: center;
+padding: 60px 20px;
+background: rgba(0, 212, 255, 0.1);
+margin: 20px 5%;
+border-radius: 12px;
+}
+
+.cta-section h2 {
+color: #fff;
+margin-bottom: 15px;
+}
+
+.cta-section p {
+color: rgba(255, 255, 255, 0.7);
+margin-bottom: 25px;
+}
+
+.cta-section .btn {
+display: inline-block;
+padding: 12px 30px;
+background: #00d4ff;
+color: #000;
+text-decoration: none;
+border-radius: 6px;
+font-weight: bold;
+}
+</style>
+</body>
+</html>
