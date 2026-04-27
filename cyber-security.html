@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cyber Security Portal | ChopaTech</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+<div class="logo">CHOPATECH</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="tutorials.html">Tutorials</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<section class="page-hero cyber-hero">
+<h1>Cyber Security Portal</h1>
+<p>Advanced protection for your digital assets.</p>
+</section>
+
+<section class="security-overview reveal">
+<div class="overview-content">
+<h2>Protect What Matters Most</h2>
+<p>Our comprehensive cybersecurity portal provides real-time threat detection, vulnerability assessment, and incident response capabilities.</p>
+</div>
+</section>
+
+<section class="threat-monitor reveal">
+<h2>Live Threat Monitor</h2>
+<div class="monitor-grid">
+<div class="threat-card">
+<div class="threat-header">
+<span class="threat-level high">HIGH</span>
+<span class="threat-time">2 min ago</span>
+</div>
+<div class="threat-body">
+<h4>Malware Detection</h4>
+<p>Trojan.GenericKD.46789234 blocked</p>
+</div>
+</div>
+
+<div class="threat-card">
+<div class="threat-header">
+<span class="threat-level medium">MEDIUM</span>
+<span class="threat-time">5 min ago</span>
+</div>
+<div class="threat-body">
+<h4>Suspicious Login</h4>
+<p>Unusual location detected - IP: 192.168.1.xxx</p>
+</div>
+</div>
+
+<div class="threat-card">
+<div class="threat-header">
+<span class="threat-level low">LOW</span>
+<span class="threat-time">12 min ago</span>
+</div>
+<div class="threat-body">
+<h4>Port Scan Detected</h4>
+<p>External scan blocked from 45.33.xxx.xxx</p>
+</div>
+</div>
+
+<div class="threat-card">
+<div class="threat-header">
+<span class="threat-level high">HIGH</span>
+<span class="threat-time">18 min ago</span>
+</div>
+<div class="threat-body">
+<h4>SQL Injection Attempt</h4>
+<p>XSS attack blocked on /api/login</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="security-features reveal">
+<h2>Security Features</h2>
+<div class="features-grid">
+<div class="security-feature">
+<span class="feature-icon">🛡️</span>
+<h3>Firewall Protection</h3>
+<p>Advanced firewall with deep packet inspection.</p>
+</div>
+
+<div class="security-feature">
+<span class="feature-icon">🔍</span>
+<h3>Threat Intelligence</h3>
+<p>AI-powered threat detection and prevention.</p>
+</div>
+
+<div class="security-feature">
+<span class="feature-icon">🔐</span>
+<h3>Access Control</h3>
+<p>Multi-factor authentication and role-based access.</p>
+</div>
+
+<div class="security-feature">
+<span class="feature-icon">📝</span>
+<h3>Compliance Reports</h3>
+<p>GDPR, HIPAA, and SOC2 compliance tools.</p>
+</div>
+
+<div class="security-feature">
+<span class="feature-icon">⚡</span>
+<h3>Incident Response</h3>
+<p>Automated threat response and remediation.</p>
+</div>
+
+<div class="security-feature">
+<span class="feature-icon">📊</span>
+<h3>Security Analytics</h3>
+<p>Real-time security dashboards and reports.</p>
+</div>
+</div>
+</section>
+
+<section class="security-stats reveal">
+<h2>Security Status</h2>
+<div class="status-grid">
+<div class="status-item protected">
+<span class="status-icon">✓</span>
+<span class="status-text">Firewall Active</span>
+</div>
+<div class="status-item protected">
+<span class="status-icon">✓</span>
+<span class="status-text">Antivirus Updated</span>
+</div>
+<div class="status-item protected">
+<span class="status-icon">✓</span>
+<span class="status-text">VPN Secure</span>
+</div>
+<div class="status-item protected">
+<span class="status-icon">✓</span>
+<span class="status-text">SSL Valid</span>
+</div>
+<div class="status-item warning">
+<span class="status-icon">!</span>
+<span class="status-text">3 Updates Pending</span>
+</div>
+</div>
+</section>
+
+<section class="security-scan reveal">
+<h2>Quick Security Scan</h2>
+<div class="scan-interface">
+<div class="scan-progress">
+<div class="scan-bar">
+<div class="scan-fill" id="scanFill"></div>
+</div>
+<span class="scan-status" id="scanStatus">Ready to scan</span>
+</div>
+<button class="scan-btn" onclick="startScan()">Start Scan</button>
+</div>
+</section>
+
+<section class="cta-section reveal">
+<h2>Secure Your Business Today</h2>
+<p>Get comprehensive cybersecurity protection for your organization.</p>
+<a href="contact.html" class="btn">Get Protected</a>
+</section>
+
+<footer>
+<p>&copy; 2026 ChopaTech. All rights reserved.</p>
+</footer>
+
+<script>
+function startScan() {
+const scanFill = document.getElementById('scanFill');
+const scanStatus = document.getElementById('scanStatus');
+let progress = 0;
+
+scanStatus.textContent = 'Scanning...';
+scanFill.style.width = '0%';
+
+const interval = setInterval(() => {
+progress += 5;
+scanFill.style.width = progress + '%';
+
+if (progress >= 100) {
+clearInterval(interval);
+scanStatus.textContent = 'Scan complete - No threats found';
+}
+}, 100);
+}
+</script>
+
+<style>
+.cyber-hero {
+background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 100%);
+}
+
+.security-overview {
+text-align: center;
+padding: 50px 5%;
+background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 0, 128, 0.1) 100%);
+}
+
+.overview-content h2 {
+color: #00d4ff;
+font-size: 32px;
+margin-bottom: 15px;
+}
+
+.overview-content p {
+color: rgba(255, 255, 255, 0.8);
+max-width: 700px;
+margin: 0 auto;
+font-size: 18px;
+}
+
+.threat-monitor {
+padding: 50px 5%;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.threat-monitor h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.monitor-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+
+.threat-card {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+overflow: hidden;
+}
+
+.threat-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 15px;
+background: rgba(0, 0, 0, 0.3);
+}
+
+.threat-level {
+padding: 4px 10px;
+border-radius: 4px;
+font-size: 12px;
+font-weight: bold;
+}
+
+.threat-level.high {
+background: rgba(255, 0, 0, 0.3);
+color: #ff4444;
+}
+
+.threat-level.medium {
+background: rgba(255, 165, 0, 0.3);
+color: #ffa500;
+}
+
+.threat-level.low {
+background: rgba(0, 255, 0, 0.3);
+color: #00ff00;
+}
+
+.threat-time {
+color: rgba(255, 255, 255, 0.5);
+font-size: 12px;
+}
+
+.threat-body {
+padding: 15px;
+}
+
+.threat-body h4 {
+color: #fff;
+margin-bottom: 8px;
+}
+
+.threat-body p {
+color: rgba(255, 255, 255, 0.7);
+font-size: 13px;
+}
+
+.security-features {
+padding: 50px 5%;
+max-width: 1400px;
+margin: 0 auto;
+}
+
+.security-features h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 40px;
+}
+
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 25px;
+}
+
+.security-feature {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 30px;
+text-align: center;
+transition: all 0.3s;
+}
+
+.security-feature:hover {
+transform: translateY(-5px);
+border-color: #00d4ff;
+}
+
+.feature-icon {
+font-size: 40px;
+display: block;
+margin-bottom: 15px;
+}
+
+.security-feature h3 {
+color: #00d4ff;
+margin-bottom: 10px;
+}
+
+.security-feature p {
+color: rgba(255, 255, 255, 0.7);
+font-size: 14px;
+}
+
+.security-stats {
+padding: 50px 5%;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.security-stats h2 {
+text-align: center;
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.status-grid {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 20px;
+}
+
+.status-item {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 15px 25px;
+border-radius: 8px;
+background: rgba(255, 255, 255, 0.05);
+}
+
+.status-item.protected {
+border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.status-item.warning {
+border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.status-icon {
+font-size: 18px;
+}
+
+.status-item.protected .status-icon {
+color: #00ff00;
+}
+
+.status-item.warning .status-icon {
+color: #ffa500;
+}
+
+.status-text {
+color: #fff;
+}
+
+.security-scan {
+padding: 50px 5%;
+max-width: 800px;
+margin: 0 auto;
+text-align: center;
+}
+
+.security-scan h2 {
+color: #00d4ff;
+margin-bottom: 30px;
+}
+
+.scan-interface {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 30px;
+}
+
+.scan-progress {
+margin-bottom: 20px;
+}
+
+.scan-bar {
+height: 20px;
+background: rgba(0, 0, 0, 0.3);
+border-radius: 10px;
+overflow: hidden;
+margin-bottom: 10px;
+}
+
+.scan-fill {
+height: 100%;
+width: 0%;
+background: linear-gradient(90deg, #00d4ff, #00ff88);
+border-radius: 10px;
+transition: width 0.3s;
+}
+
+.scan-status {
+color: rgba(255, 255, 255, 0.7);
+}
+
+.scan-btn {
+padding: 12px 30px;
+background: #00d4ff;
+border: none;
+border-radius: 6px;
+color: #000;
+font-weight: bold;
+cursor: pointer;
+transition: transform 0.3s;
+}
+
+.scan-btn:hover {
+transform: scale(1.05);
+}
+
+.cta-section {
+text-align: center;
+padding: 60px 20px;
+background: rgba(0, 212, 255, 0.1);
+margin: 20px 5%;
+border-radius: 12px;
+}
+
+.cta-section h2 {
+color: #fff;
+margin-bottom: 15px;
+}
+
+.cta-section p {
+color: rgba(255, 255, 255, 0.7);
+margin-bottom: 25px;
+}
+
+.cta-section .btn {
+display: inline-block;
+padding: 12px 30px;
+background: #00d4ff;
+color: #000;
+text-decoration: none;
+border-radius: 6px;
+font-weight: bold;
+}
+</style>
+</body>
+</html>
