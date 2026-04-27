@@ -1,42 +1,48 @@
-const chatBox = document.getElementById("chatBox");
-const input = document.getElementById("userInput");
+// scroll reveal
+const reveals=document.querySelectorAll('.reveal');
 
-async function sendMessage() {
-  const text = input.value.trim();
-  if (!text) return;
-
-  // show user message
-  chatBox.innerHTML += `<div class="user-msg">${text}</div>`;
-  input.value = "";
-
-  // loading indicator
-  const loading = document.createElement("div");
-  loading.className = "bot-msg";
-  loading.textContent = "Thinking...";
-  chatBox.appendChild(loading);
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  // call backend - uses relative path for both local and production
-  const res = await fetch("/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text })
-  });
-
-  const data = await res.json();
-
-  loading.remove();
-
-  chatBox.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('active');
 }
-function typeEffect(element, text) {
-  let i = 0;
-  element.textContent = "";
-  const interval = setInterval(() => {
-    element.textContent += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, 20);
+});
+},{threshold:.15});
+
+reveals.forEach(el=>observer.observe(el));
+
+// simple chatbot demo
+function sendMessage(){
+const input=document.getElementById('userInput');
+const chat=document.getElementById('chatBox');
+if(!input || !input.value.trim()) return;
+
+let user=document.createElement('div');
+user.className='user-msg';
+user.textContent=input.value;
+chat.appendChild(user);
+
+let text=input.value.toLowerCase();
+input.value='';
+
+setTimeout(()=>{
+let bot=document.createElement('div');
+bot.className='bot-msg';
+
+if(text.includes('website')){
+bot.textContent='We build modern websites, web apps and SaaS platforms.';
+}
+else if(text.includes('wifi')||text.includes('network')){
+bot.textContent='We provide networking and Wi-Fi deployment solutions.';
+}
+else if(text.includes('ai')){
+bot.textContent='We develop AI solutions, chatbots and automation systems.';
+}
+else{
+bot.textContent='Thanks for contacting ChopaTech. Ask me about AI, websites or networking.';
+}
+
+chat.appendChild(bot);
+chat.scrollTop=chat.scrollHeight;
+},700);
 }
