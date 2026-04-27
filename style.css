@@ -55,6 +55,49 @@ display:flex;
 gap:30px;
 }
 
+/* Navbar Search */
+.nav-search{
+display:flex;
+align-items:center;
+gap:8px;
+margin-right:15px;
+}
+
+.nav-search input{
+padding:10px 16px;
+border:1px solid rgba(0,255,255,.2);
+border-radius:25px;
+background:rgba(0,0,0,.3);
+color:white;
+font-size:.9rem;
+outline:none;
+width:180px;
+transition:all .3s;
+}
+
+.nav-search input::placeholder{
+color:rgba(255,255,255,.5);
+}
+
+.nav-search input:focus{
+border-color:#00ffff;
+width:220px;
+box-shadow:0 0 15px rgba(0,255,255,.15);
+}
+
+.nav-search button{
+padding:10px 14px;
+border:1px solid rgba(0,255,255,.2);
+border-radius:50%;
+background:rgba(0,0,0,.3);
+cursor:pointer;
+transition:all .3s;
+}
+
+.nav-search button:hover{
+background:#00ffff;
+}
+
 .logo{
 font-weight:800;
 letter-spacing:2px;
@@ -92,6 +135,41 @@ margin-top:35px;
 display:flex;
 gap:20px;
 flex-wrap:wrap;
+}
+
+/* Hero Tiles */
+.hero-tiles{
+display:flex;
+gap:25px;
+margin-top:40px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero-tile{
+display:flex;
+align-items:center;
+gap:15px;
+padding:20px 35px;
+background:linear-gradient(135deg,rgba(8,20,40,.9),rgba(15,35,60,.8));
+border:1px solid rgba(0,255,255,.2);
+border-radius:16px;
+transition:all .3s ease;
+}
+
+.hero-tile:hover{
+transform:translateY(-5px);
+border-color:#00ffff;
+box-shadow:0 15px 35px rgba(0,255,255,.2);
+}
+
+.hero-tile .tile-icon{
+font-size:2rem;
+}
+
+.hero-tile .tile-text{
+font-size:1.1rem;
+font-weight:600;
 }
 
 .btn{
@@ -336,4 +414,174 @@ background:rgba(8,20,40,.8);
 border-top:1px solid rgba(0,255,255,.1);
 color:#a7b6d8;
 font-size:.95rem;
+}
+
+/* Portfolio - Modern Tiles */
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+padding:40px 8%;
+max-width:1200px;
+margin:0 auto;
+}
+
+.project{
+background:linear-gradient(135deg,rgba(8,20,40,.9),rgba(15,35,60,.8));
+border:1px solid rgba(0,255,255,.15);
+border-radius:20px;
+padding:40px 30px;
+text-align:center;
+font-size:1.3rem;
+font-weight:600;
+transition:all .3s ease;
+position:relative;
+overflow:hidden;
+}
+
+.project::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:3px;
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+opacity:0;
+transition:opacity .3s;
+}
+
+.project:hover{
+transform:translateY(-8px);
+border-color:rgba(0,255,255,.4);
+box-shadow:0 20px 40px rgba(0,0,0,.4),0 0 30px rgba(0,255,255,.1);
+color:#00ffff;
+}
+
+.project:hover::before{
+opacity:1;
+}
+
+/* Contact Section - Modern */
+.contact-wrap{
+padding:60px 8%;
+max-width:700px;
+margin:0 auto;
+}
+
+.contact-box{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.contact-box input,
+.contact-box textarea{
+padding:18px 22px;
+border:1px solid rgba(0,255,255,.2);
+border-radius:14px;
+background:rgba(8,20,40,.8);
+color:white;
+font-size:1rem;
+outline:none;
+transition:all .3s;
+}
+
+.contact-box input::placeholder,
+.contact-box textarea::placeholder{
+color:rgba(255,255,255,.5);
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus{
+border-color:#00ffff;
+box-shadow:0 0 20px rgba(0,255,255,.15);
+}
+
+.contact-box textarea{
+min-height:150px;
+resize:vertical;
+}
+
+.contact-box .btn{
+padding:18px 35px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+color:#06111f;
+font-size:1.1rem;
+font-weight:700;
+cursor:pointer;
+transition:all .3s;
+align-self:center;
+}
+
+.contact-box .btn:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 30px rgba(0,255,255,.3);
+}
+
+/* WhatsApp Float Button */
+.social-float{
+position:fixed;
+bottom:30px;
+left:30px;
+z-index:1000;
+display:flex;
+gap:15px;
+}
+
+.whatsapp-float,
+.instagram-float,
+.tiktok-float{
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:all .3s;
+}
+
+.whatsapp-float{
+background:#25d366;
+box-shadow:0 10px 25px rgba(37,211,102,.4);
+animation:whatsappPulse 2s infinite;
+}
+
+.instagram-float{
+background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+box-shadow:0 10px 25px rgba(225,48,108,.4);
+animation:socialPulse 2s infinite;
+}
+
+.tiktok-float{
+background:#000;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+animation:socialPulse 2s infinite;
+animation-delay:.5s;
+}
+
+@keyframes whatsappPulse{
+0%,100%{box-shadow:0 10px 25px rgba(37,211,102,.4);}
+50%{box-shadow:0 10px 35px rgba(37,211,102,.6);}
+}
+
+@keyframes socialPulse{
+0%,100%{box-shadow:0 10px 25px rgba(0,0,0,.3);}
+50%{box-shadow:0 10px 35px rgba(0,0,0,.5);}
+}
+
+.whatsapp-float:hover,
+.instagram-float:hover,
+.tiktok-float:hover{
+transform:scale(1.1);
+}
+
+.whatsapp-float svg,
+.instagram-float svg,
+.tiktok-float svg{
+width:28px;
+height:28px;
+fill:white;
 }
