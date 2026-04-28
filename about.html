@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About ChopaTech Tanzania</title>
+<link rel="stylesheet" href="about.css">
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">CHOPATECH</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero reveal">
+  <h1>About ChopaTech Tanzania</h1>
+  <p>We build intelligent digital systems that power the future of business.</p>
+</section>
+
+<!-- ABOUT CONTENT -->
+<section class="content reveal">
+
+  <div class="card">
+    <h2>Who We Are</h2>
+    <p>
+      ChopaTech Tanzania is a forward-thinking technology company focused on building modern digital solutions.
+      We design smart systems that help businesses grow, operate efficiently, and transform ideas into real digital products.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Our Philosophy</h2>
+    <p>
+      “We Care for Digital Innovation.”  
+      Every solution we build is guided by simplicity, intelligence, and long-term impact.
+    </p>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="card">
+      <h2>Our Mission</h2>
+      <p>
+        To deliver world-class digital solutions combining creativity, engineering, and innovation for businesses in Tanzania and beyond.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Our Vision</h2>
+      <p>
+        To become one of Africa’s leading technology companies building intelligent systems that shape the future of business.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section class="services reveal">
+
+  <h2>What We Do</h2>
+
+  <div class="service-grid">
+
+    <div class="service-card">Web Development</div>
+    <div class="service-card">AI & Automation</div>
+    <div class="service-card">Networking Solutions</div>
+    <div class="service-card">Cybersecurity</div>
+    <div class="service-card">IT Support</div>
+    <div class="service-card">Custom Software</div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="reveal">
+  <p>ChopaTech Tanzania — We Care for Digital Innovation</p>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
