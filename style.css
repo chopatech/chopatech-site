@@ -533,7 +533,9 @@ gap:15px;
 
 .whatsapp-float,
 .instagram-float,
-.tiktok-float{
+.tiktok-float,
+.facebook-float,
+.youtube-float{
 width:60px;
 height:60px;
 border-radius:50%;
@@ -562,6 +564,20 @@ animation:socialPulse 2s infinite;
 animation-delay:.5s;
 }
 
+.facebook-float{
+background:#1877f2;
+box-shadow:0 10px 25px rgba(24,119,242,.4);
+animation:socialPulse 2s infinite;
+animation-delay:1s;
+}
+
+.youtube-float{
+background:#ff0000;
+box-shadow:0 10px 25px rgba(255,0,0,.4);
+animation:socialPulse 2s infinite;
+animation-delay:1.5s;
+}
+
 @keyframes whatsappPulse{
 0%,100%{box-shadow:0 10px 25px rgba(37,211,102,.4);}
 50%{box-shadow:0 10px 35px rgba(37,211,102,.6);}
@@ -574,13 +590,17 @@ animation-delay:.5s;
 
 .whatsapp-float:hover,
 .instagram-float:hover,
-.tiktok-float:hover{
+.tiktok-float:hover,
+.facebook-float:hover,
+.youtube-float:hover{
 transform:scale(1.1);
 }
 
 .whatsapp-float svg,
 .instagram-float svg,
-.tiktok-float svg{
+.tiktok-float svg,
+.facebook-float svg,
+.youtube-float svg{
 width:28px;
 height:28px;
 fill:white;
