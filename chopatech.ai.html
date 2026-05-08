@@ -124,94 +124,103 @@
 <script>
 
 // SEND MESSAGE
-function sendMessage(){
+async function sendMessage() {
 
-  const input = document.getElementById('messageInput');
-  const text = input.value.trim();
+  const input =
+    document.getElementById('messageInput');
 
-  if(!text) return;
+  const text =
+    input.value.trim();
 
-  const chatBox = document.getElementById('chatBox');
+  if (!text) return;
+
+  const chatBox =
+    document.getElementById('chatBox');
 
   // USER MESSAGE
-  const user = document.createElement('div');
-  user.className = 'flex justify-end';
+  const user =
+    document.createElement('div');
+
+  user.className =
+    'flex justify-end';
 
   user.innerHTML = `
-    <div class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%] font-medium">
+    <div class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
       ${text}
     </div>
   `;
 
   chatBox.appendChild(user);
 
-  // AI RESPONSE
-  setTimeout(()=>{
+  input.value = '';
 
-    const ai = document.createElement('div');
+  // AI LOADING
+  const loading =
+    document.createElement('div');
+
+  loading.className = 'flex';
+
+  loading.innerHTML = `
+    <div class="bg-white/10 border border-white/10 rounded-3xl p-5">
+      🤖 Thinking...
+    </div>
+  `;
+
+  chatBox.appendChild(loading);
+
+  chatBox.scrollTop =
+    chatBox.scrollHeight;
+
+  try {
+
+    // CALL AI BACKEND
+    const response = await fetch(
+      "https://ai.chopatech.com",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          message: text
+        })
+      }
+    );
+
+    const data =
+      await response.json();
+
+    loading.remove();
+
+    // AI RESPONSE
+    const ai =
+      document.createElement('div');
+
     ai.className = 'flex';
 
     ai.innerHTML = `
       <div class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
-        🤖 ChopaTech AI: ${text}
+        🤖 ${data.choices[0].message.content}
       </div>
     `;
 
     chatBox.appendChild(ai);
-    chatBox.scrollTop = chatBox.scrollHeight;
 
-  },700);
+    chatBox.scrollTop =
+      chatBox.scrollHeight;
 
-  input.value = '';
-}
+  } catch(error) {
 
-// VOICE TALK
-function startVoice(){
+    loading.innerHTML = `
+      <div class="bg-red-500/20 border border-red-500 rounded-3xl p-5">
+        ❌ Error connecting to AI.
+      </div>
+    `;
 
-  const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
-
-  recognition.lang = 'en-US';
-  recognition.start();
-
-  recognition.onresult = function(event){
-
-    const transcript = event.results[0][0].transcript;
-
-    document.getElementById('messageInput').value = transcript;
+    console.error(error);
   }
-
-}
-
-// FILE UPLOAD
-function uploadFile(event){
-
-  const file = event.target.files[0];
-
-  if(!file) return;
-
-  document.getElementById('uploadPreview').classList.remove('hidden');
-  document.getElementById('fileName').innerText = file.name;
-
-  const chatBox = document.getElementById('chatBox');
-
-  const uploadMsg = document.createElement('div');
-  uploadMsg.className = 'flex justify-end';
-
-  uploadMsg.innerHTML = `
-    <div class="bg-blue-500 text-white rounded-3xl p-5 max-w-[70%]">
-      📎 Uploaded: ${file.name}
-    </div>
-  `;
-
-  chatBox.appendChild(uploadMsg);
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-}
-
-// REMOVE UPLOAD
-function removeUpload(){
-  document.getElementById('uploadPreview').classList.add('hidden');
 }
 
 </script>
