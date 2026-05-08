@@ -4,13 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChopaTech AI Assistant</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    body{
+      background: linear-gradient(to bottom right,#06111f,#0b1729);
+    }
+
+    ::-webkit-scrollbar{
+      width:6px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#10b981;
+      border-radius:10px;
+    }
+
+  </style>
+
 </head>
-<body class="bg-[#07111f] text-white overflow-hidden">
+
+<body class="text-white overflow-hidden">
 
 <div class="flex h-screen">
 
-  <!-- Sidebar -->
+  <!-- SIDEBAR -->
   <aside class="w-72 bg-black/30 border-r border-white/10 p-6 backdrop-blur-xl flex flex-col">
 
     <h1 class="text-3xl font-black mb-10">
@@ -19,98 +39,147 @@
 
     <nav class="space-y-4 text-sm">
 
-      <button class="w-full text-left p-4 rounded-2xl bg-white/10 hover:bg-white/20 transition">
+      <button onclick="newChat()"
+        class="w-full text-left p-4 rounded-2xl bg-white/10 hover:bg-white/20 transition">
         💬 New Chat
       </button>
 
-      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
-        📁 Upload Files
-      </button>
+      <label
+        class="w-full block text-left p-4 rounded-2xl hover:bg-white/10 transition cursor-pointer">
 
-      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
+        📎 Upload File
+
+        <input
+          type="file"
+          hidden
+          onchange="uploadFile(event)">
+      </label>
+
+      <button onclick="startVoice()"
+        class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
         🎤 Voice Talk
       </button>
 
-      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
+      <button
+        class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
         ⚙ Settings
       </button>
 
     </nav>
 
-    <div class="mt-auto bg-white/5 border border-white/10 rounded-3xl p-5">
-      <p class="text-gray-400 text-xs">AI Status</p>
+    <div
+      class="mt-auto bg-white/5 border border-white/10 rounded-3xl p-5">
+
+      <p class="text-gray-400 text-xs">
+        Workers AI Status
+      </p>
+
       <h2 class="text-2xl font-bold text-emerald-400 mt-2">
         Online
       </h2>
+
     </div>
 
   </aside>
 
-  <!-- Main Chat -->
+  <!-- MAIN -->
   <main class="flex-1 flex flex-col">
 
-    <!-- Top Bar -->
-    <header class="border-b border-white/10 p-5 flex justify-between items-center bg-black/20 backdrop-blur-xl">
+    <!-- TOP BAR -->
+    <header
+      class="border-b border-white/10 p-5 bg-black/20 backdrop-blur-xl flex justify-between items-center">
 
       <div>
-        <h2 class="text-2xl font-bold">ChopaTech AI Assistant</h2>
-        <p class="text-gray-400 text-sm mt-1">Modern AI assistant with upload + voice support</p>
-      </div>
 
-      <div class="flex gap-3">
+        <h2 class="text-2xl font-bold">
+          ChopaTech AI Assistant
+        </h2>
 
-        <button onclick="startVoice()"
-          class="bg-emerald-500 hover:bg-emerald-400 px-5 py-3 rounded-2xl font-bold transition">
-          🎤 Talk
-        </button>
-
-        <label class="bg-blue-500 hover:bg-blue-400 px-5 py-3 rounded-2xl font-bold transition cursor-pointer">
-          📎 Upload
-          <input type="file" hidden onchange="uploadFile(event)">
-        </label>
+        <p class="text-gray-400 text-sm mt-1">
+          AI powered by Cloudflare Workers AI
+        </p>
 
       </div>
+
+      <button onclick="startVoice()"
+        class="bg-emerald-500 hover:bg-emerald-400 px-5 py-3 rounded-2xl font-bold transition">
+
+        🎙 Talk
+
+      </button>
 
     </header>
 
-    <!-- Chat Messages -->
+    <!-- CHAT -->
     <div id="chatBox"
-      class="flex-1 overflow-y-auto p-8 space-y-6 bg-gradient-to-b from-[#07111f] to-[#0c1829]">
+      class="flex-1 overflow-y-auto p-8 space-y-6">
 
+      <!-- AI MESSAGE -->
       <div class="flex">
-        <div class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
-          👋 Welcome to ChopaTech AI. You can type, upload files, or talk with voice.
+
+        <div
+          class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+
+          👋 Welcome to ChopaTech AI.<br><br>
+
+          You can:
+          <br>
+          • Ask questions
+          <br>
+          • Upload files
+          <br>
+          • Talk with voice
+
         </div>
+
       </div>
 
     </div>
 
-    <!-- Upload Preview -->
-    <div id="uploadPreview" class="px-8 py-2 hidden">
-      <div class="bg-white/10 border border-white/10 rounded-2xl p-4 flex justify-between items-center">
-        <span id="fileName">file.pdf</span>
-        <button onclick="removeUpload()" class="text-red-400">✖</button>
+    <!-- UPLOAD PREVIEW -->
+    <div id="uploadPreview"
+      class="px-8 py-2 hidden">
+
+      <div
+        class="bg-white/10 border border-white/10 rounded-2xl p-4 flex justify-between items-center">
+
+        <span id="fileName">
+          file.pdf
+        </span>
+
+        <button onclick="removeUpload()"
+          class="text-red-400 text-xl">
+          ✖
+        </button>
+
       </div>
+
     </div>
 
-    <!-- Bottom Input -->
-    <div class="border-t border-white/10 p-5 bg-black/20 backdrop-blur-xl">
+    <!-- INPUT -->
+    <div
+      class="border-t border-white/10 p-5 bg-black/20 backdrop-blur-xl">
 
       <div class="flex gap-4 items-center">
 
-        <textarea id="messageInput"
+        <textarea
+          id="messageInput"
           rows="1"
           placeholder="Message ChopaTech AI..."
           class="flex-1 p-4 rounded-2xl bg-white/10 border border-white/10 outline-none resize-none"></textarea>
 
         <button onclick="startVoice()"
           class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition text-2xl">
-          🎙
+
+          🎤
+
         </button>
 
         <button onclick="sendMessage()"
           class="bg-emerald-500 hover:bg-emerald-400 px-8 py-4 rounded-2xl font-bold transition">
+
           Send
+
         </button>
 
       </div>
@@ -123,8 +192,27 @@
 
 <script>
 
+// NEW CHAT
+function newChat(){
+
+  document.getElementById('chatBox').innerHTML = `
+  
+    <div class="flex">
+
+      <div
+        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+
+        👋 New chat started.
+
+      </div>
+
+    </div>
+
+  `;
+}
+
 // SEND MESSAGE
-async function sendMessage() {
+async function sendMessage(){
 
   const input =
     document.getElementById('messageInput');
@@ -132,7 +220,7 @@ async function sendMessage() {
   const text =
     input.value.trim();
 
-  if (!text) return;
+  if(!text) return;
 
   const chatBox =
     document.getElementById('chatBox');
@@ -145,25 +233,36 @@ async function sendMessage() {
     'flex justify-end';
 
   user.innerHTML = `
-    <div class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
+  
+    <div
+      class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
+
       ${text}
+
     </div>
+
   `;
 
   chatBox.appendChild(user);
 
   input.value = '';
 
-  // AI LOADING
+  // LOADING
   const loading =
     document.createElement('div');
 
-  loading.className = 'flex';
+  loading.className =
+    'flex';
 
   loading.innerHTML = `
-    <div class="bg-white/10 border border-white/10 rounded-3xl p-5">
+  
+    <div
+      class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+
       🤖 Thinking...
+
     </div>
+
   `;
 
   chatBox.appendChild(loading);
@@ -171,39 +270,60 @@ async function sendMessage() {
   chatBox.scrollTop =
     chatBox.scrollHeight;
 
-  try {
+  try{
 
-    // CALL AI BACKEND
-    const response = await fetch(
-  "https://chopatech-ai.username.workers.dev",
-      {
-        method: "POST",
+    // WORKERS AI URL
+    const response =
+      await fetch(
+        "https://chopatech-ai.chopatechtz.workers.dev",
+        {
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+          method: "POST",
 
-        body: JSON.stringify({
-          message: text
-        })
-      }
-    );
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            message: text
+          })
+
+        }
+      );
+
+    // CHECK RESPONSE
+    if(!response.ok){
+
+      throw new Error(
+        "Server Error"
+      );
+
+    }
 
     const data =
       await response.json();
 
     loading.remove();
 
-    // AI RESPONSE
+    // AI MESSAGE
     const ai =
       document.createElement('div');
 
-    ai.className = 'flex';
+    ai.className =
+      'flex';
 
     ai.innerHTML = `
-      <div class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
-        🤖 ${data.choices[0].message.content}
+    
+      <div
+        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+
+        🤖 ${
+          data.response ||
+          "No response from AI."
+        }
+
       </div>
+
     `;
 
     chatBox.appendChild(ai);
@@ -211,16 +331,133 @@ async function sendMessage() {
     chatBox.scrollTop =
       chatBox.scrollHeight;
 
-  } catch(error) {
+  }
 
-    loading.innerHTML = `
-      <div class="bg-red-500/20 border border-red-500 rounded-3xl p-5">
-        ❌ Error connecting to AI.
+  catch(error){
+
+    loading.remove();
+
+    const err =
+      document.createElement('div');
+
+    err.className =
+      'flex';
+
+    err.innerHTML = `
+    
+      <div
+        class="bg-red-500/20 border border-red-500 rounded-3xl p-5 max-w-[70%]">
+
+        ❌ Failed to connect to AI.<br><br>
+
+        Check:
+        <br>
+        • Worker URL
+        <br>
+        • Worker deployment
+        <br>
+        • Workers AI binding
+
       </div>
+
     `;
 
+    chatBox.appendChild(err);
+
     console.error(error);
+
   }
+
+}
+
+// VOICE TALK
+function startVoice(){
+
+  if(
+    !('webkitSpeechRecognition' in window)
+  ){
+
+    alert(
+      "Speech recognition not supported."
+    );
+
+    return;
+  }
+
+  const recognition =
+    new webkitSpeechRecognition();
+
+  recognition.lang = 'en-US';
+
+  recognition.start();
+
+  recognition.onresult =
+    function(event){
+
+      const transcript =
+        event.results[0][0].transcript;
+
+      document.getElementById(
+        'messageInput'
+      ).value = transcript;
+
+    };
+
+}
+
+// FILE UPLOAD
+function uploadFile(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  document.getElementById(
+    'uploadPreview'
+  ).classList.remove('hidden');
+
+  document.getElementById(
+    'fileName'
+  ).innerText = file.name;
+
+  const chatBox =
+    document.getElementById(
+      'chatBox'
+    );
+
+  const upload =
+    document.createElement('div');
+
+  upload.className =
+    'flex justify-end';
+
+  upload.innerHTML = `
+  
+    <div
+      class="bg-blue-500 rounded-3xl p-5 max-w-[70%]">
+
+      📎 Uploaded:
+      ${file.name}
+
+    </div>
+
+  `;
+
+  chatBox.appendChild(upload);
+
+  chatBox.scrollTop =
+    chatBox.scrollHeight;
+
+}
+
+// REMOVE FILE
+function removeUpload(){
+
+  document.getElementById(
+    'uploadPreview'
+  ).classList.add('hidden');
+
 }
 
 </script>
