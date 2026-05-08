@@ -1,79 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChopaTech AI Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChopaTech AI Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="/favicon.png">
-
-<!-- Optional Apple devices -->
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="icon" href="https://chopatech.com/favicon.png">
-<meta property="og:image" content="https://chopatech.com/favicon.png"> 
 </head>
-<body class="bg-[#06111f] text-white h-screen flex flex-col">
+<body class="bg-[#07111f] text-white overflow-hidden">
 
-<!-- Top Bar -->
-<header class="p-4 border-b border-white/10 flex justify-between items-center">
-  <h1 class="text-xl font-bold">
-    <span class="text-emerald-400">ChopaTech</span> AI
-  </h1>
-  <a href="index.html" class="text-sm text-gray-300 hover:text-white">← Back</a>
-</header>
+<div class="flex h-screen">
 
-<!-- Chat Container -->
-<main class="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4">
+  <!-- Sidebar -->
+  <aside class="w-72 bg-black/30 border-r border-white/10 p-6 backdrop-blur-xl flex flex-col">
 
-  <!-- Messages -->
-  <div id="chatBox" class="flex-1 overflow-y-auto space-y-4 p-4">
-    <div class="bg-white/10 p-4 rounded-2xl w-fit max-w-[80%]">
-      👋 Hello! I am ChopaTech AI. How can I help you today?
+    <h1 class="text-3xl font-black mb-10">
+      🤖 <span class="text-emerald-400">ChopaTech</span> AI
+    </h1>
+
+    <nav class="space-y-4 text-sm">
+
+      <button class="w-full text-left p-4 rounded-2xl bg-white/10 hover:bg-white/20 transition">
+        💬 New Chat
+      </button>
+
+      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
+        📁 Upload Files
+      </button>
+
+      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
+        🎤 Voice Talk
+      </button>
+
+      <button class="w-full text-left p-4 rounded-2xl hover:bg-white/10 transition">
+        ⚙ Settings
+      </button>
+
+    </nav>
+
+    <div class="mt-auto bg-white/5 border border-white/10 rounded-3xl p-5">
+      <p class="text-gray-400 text-xs">AI Status</p>
+      <h2 class="text-2xl font-bold text-emerald-400 mt-2">
+        Online
+      </h2>
     </div>
-  </div>
 
-  <!-- Input -->
-  <div class="p-4 border-t border-white/10 flex gap-3">
-    <input id="userInput" type="text" placeholder="Type your message..."
-      class="flex-1 p-3 rounded-xl bg-white/10 border border-white/10 outline-none" />
+  </aside>
 
-    <button onclick="sendMessage()"
-      class="bg-emerald-500 hover:bg-emerald-400 px-6 py-3 rounded-xl font-semibold">
-      Send
-    </button>
-  </div>
+  <!-- Main Chat -->
+  <main class="flex-1 flex flex-col">
 
-</main>
+    <!-- Top Bar -->
+    <header class="border-b border-white/10 p-5 flex justify-between items-center bg-black/20 backdrop-blur-xl">
+
+      <div>
+        <h2 class="text-2xl font-bold">ChopaTech AI Assistant</h2>
+        <p class="text-gray-400 text-sm mt-1">Modern AI assistant with upload + voice support</p>
+      </div>
+
+      <div class="flex gap-3">
+
+        <button onclick="startVoice()"
+          class="bg-emerald-500 hover:bg-emerald-400 px-5 py-3 rounded-2xl font-bold transition">
+          🎤 Talk
+        </button>
+
+        <label class="bg-blue-500 hover:bg-blue-400 px-5 py-3 rounded-2xl font-bold transition cursor-pointer">
+          📎 Upload
+          <input type="file" hidden onchange="uploadFile(event)">
+        </label>
+
+      </div>
+
+    </header>
+
+    <!-- Chat Messages -->
+    <div id="chatBox"
+      class="flex-1 overflow-y-auto p-8 space-y-6 bg-gradient-to-b from-[#07111f] to-[#0c1829]">
+
+      <div class="flex">
+        <div class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+          👋 Welcome to ChopaTech AI. You can type, upload files, or talk with voice.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Upload Preview -->
+    <div id="uploadPreview" class="px-8 py-2 hidden">
+      <div class="bg-white/10 border border-white/10 rounded-2xl p-4 flex justify-between items-center">
+        <span id="fileName">file.pdf</span>
+        <button onclick="removeUpload()" class="text-red-400">✖</button>
+      </div>
+    </div>
+
+    <!-- Bottom Input -->
+    <div class="border-t border-white/10 p-5 bg-black/20 backdrop-blur-xl">
+
+      <div class="flex gap-4 items-center">
+
+        <textarea id="messageInput"
+          rows="1"
+          placeholder="Message ChopaTech AI..."
+          class="flex-1 p-4 rounded-2xl bg-white/10 border border-white/10 outline-none resize-none"></textarea>
+
+        <button onclick="startVoice()"
+          class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition text-2xl">
+          🎙
+        </button>
+
+        <button onclick="sendMessage()"
+          class="bg-emerald-500 hover:bg-emerald-400 px-8 py-4 rounded-2xl font-bold transition">
+          Send
+        </button>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
 
 <script>
-function addMessage(text, isUser=false){
-  const chatBox = document.getElementById('chatBox');
-  const msg = document.createElement('div');
 
-  msg.className = isUser
-    ? 'bg-emerald-500 text-black p-4 rounded-2xl ml-auto w-fit max-w-[80%]'
-    : 'bg-white/10 p-4 rounded-2xl w-fit max-w-[80%]';
-
-  msg.innerText = text;
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
+// SEND MESSAGE
 function sendMessage(){
-  const input = document.getElementById('userInput');
+
+  const input = document.getElementById('messageInput');
   const text = input.value.trim();
+
   if(!text) return;
 
-  addMessage(text, true);
-  input.value = '';
+  const chatBox = document.getElementById('chatBox');
 
-  // Fake AI response (replace with real API later)
-  setTimeout(() => {
-    addMessage("🤖 ChopaTech AI: I received your message - " + text);
-  }, 800);
+  // USER MESSAGE
+  const user = document.createElement('div');
+  user.className = 'flex justify-end';
+
+  user.innerHTML = `
+    <div class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%] font-medium">
+      ${text}
+    </div>
+  `;
+
+  chatBox.appendChild(user);
+
+  // AI RESPONSE
+  setTimeout(()=>{
+
+    const ai = document.createElement('div');
+    ai.className = 'flex';
+
+    ai.innerHTML = `
+      <div class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+        🤖 ChopaTech AI: ${text}
+      </div>
+    `;
+
+    chatBox.appendChild(ai);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+  },700);
+
+  input.value = '';
 }
+
+// VOICE TALK
+function startVoice(){
+
+  const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+  recognition.lang = 'en-US';
+  recognition.start();
+
+  recognition.onresult = function(event){
+
+    const transcript = event.results[0][0].transcript;
+
+    document.getElementById('messageInput').value = transcript;
+  }
+
+}
+
+// FILE UPLOAD
+function uploadFile(event){
+
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  document.getElementById('uploadPreview').classList.remove('hidden');
+  document.getElementById('fileName').innerText = file.name;
+
+  const chatBox = document.getElementById('chatBox');
+
+  const uploadMsg = document.createElement('div');
+  uploadMsg.className = 'flex justify-end';
+
+  uploadMsg.innerHTML = `
+    <div class="bg-blue-500 text-white rounded-3xl p-5 max-w-[70%]">
+      📎 Uploaded: ${file.name}
+    </div>
+  `;
+
+  chatBox.appendChild(uploadMsg);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+}
+
+// REMOVE UPLOAD
+function removeUpload(){
+  document.getElementById('uploadPreview').classList.add('hidden');
+}
+
 </script>
 
 </body>
