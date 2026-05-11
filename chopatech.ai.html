@@ -193,8 +193,8 @@
 <script>
 
 // ===============================
-// CHOPATECH AI ASSISTANT PRO
-// Workers AI + Kiswahili + Voice
+// CHOPATECH AI ULTIMATE SYSTEM
+// Workers AI + Voice + Smart Language
 // ===============================
 
 
@@ -210,19 +210,23 @@ function newChat(){
       <div
         class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
 
-        👋 Karibu ChopaTech AI.
+        👋 Karibu ChopaTech AI
 
         <br><br>
 
-        Unaweza:
+        Ninaweza:
         <br>
-        • Kuongea Kiswahili
+        • Kuzungumza Kiswahili
         <br>
-        • Kuongea English
+        • Kuzungumza English
         <br>
-        • Kutumia voice
+        • Kupokea voice
         <br>
-        • Ku-upload files
+        • Kujibu kwa sauti
+        <br>
+        • Kusaidia coding
+        <br>
+        • Kutoa maelezo mazuri
 
       </div>
 
@@ -264,7 +268,7 @@ async function sendMessage(){
   user.innerHTML = `
 
     <div
-      class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
+      class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%] shadow-2xl">
 
       ${text}
 
@@ -290,7 +294,7 @@ async function sendMessage(){
     <div
       class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%] animate-pulse">
 
-      🤖 ChopaTech AI is thinking...
+      🤖 ChopaTech AI inaandika...
 
     </div>
 
@@ -327,7 +331,7 @@ async function sendMessage(){
 
 
 
-    // CHECK SERVER
+    // SERVER ERROR
     if(!response.ok){
 
       throw new Error(
@@ -345,7 +349,7 @@ async function sendMessage(){
 
 
 
-    // GET AI RESPONSE
+    // AI RESPONSE
     const aiResponse =
 
       data.response ||
@@ -357,7 +361,8 @@ async function sendMessage(){
 
 
 
-    // AI MESSAGE
+
+    // CREATE AI MESSAGE
     const ai =
       document.createElement('div');
 
@@ -367,9 +372,9 @@ async function sendMessage(){
     ai.innerHTML = `
 
       <div
-        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
+        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%] backdrop-blur-xl">
 
-        🤖 ${aiResponse}
+        <div id="typing"></div>
 
       </div>
 
@@ -382,8 +387,47 @@ async function sendMessage(){
 
 
 
-    // SPEAK RESPONSE
+    // TYPING EFFECT
+    typeWriterEffect(
+      ai.querySelector('#typing'),
+      aiResponse
+    );
+
+
+
+    // AI SPEAK
     speakAI(aiResponse);
+
+
+
+
+    // IMAGE REFERENCE
+    if(
+
+      text.includes("image")
+      ||
+      text.includes("picture")
+      ||
+      text.includes("photo")
+      ||
+      text.includes("onyesha")
+      ||
+      text.includes("picha")
+
+    ){
+
+      const image =
+        document.createElement('img');
+
+      image.src =
+        "https://source.unsplash.com/800x500/?technology";
+
+      image.className =
+        "rounded-3xl mt-4 border border-white/10";
+
+      ai.appendChild(image);
+
+    }
 
 
 
@@ -395,7 +439,6 @@ async function sendMessage(){
 
 
 
-    // ERROR MESSAGE
     const err =
       document.createElement('div');
 
@@ -433,6 +476,40 @@ async function sendMessage(){
 
 
 
+// GPT TYPING EFFECT
+function typeWriterEffect(
+  element,
+  text
+){
+
+  let i = 0;
+
+  const speed = 15;
+
+  function typing(){
+
+    if(i < text.length){
+
+      element.innerHTML +=
+        text.charAt(i);
+
+      i++;
+
+      setTimeout(
+        typing,
+        speed
+      );
+
+    }
+
+  }
+
+  typing();
+
+}
+
+
+
 // VOICE INPUT
 function startVoice(){
 
@@ -456,8 +533,17 @@ function startVoice(){
   const recognition =
     new webkitSpeechRecognition();
 
+
+
+  // SMART LANGUAGE
   recognition.lang =
-    'sw-TZ';
+    'en-US';
+
+  recognition.continuous =
+    false;
+
+  recognition.interimResults =
+    false;
 
 
 
@@ -465,11 +551,12 @@ function startVoice(){
 
 
 
+
   recognition.onstart =
     function(){
 
       console.log(
-        "Voice started..."
+        "Voice listening..."
       );
 
     };
@@ -486,6 +573,8 @@ function startVoice(){
       document.getElementById(
         'messageInput'
       ).value = transcript;
+
+      sendMessage();
 
     };
 
@@ -504,7 +593,7 @@ function startVoice(){
 
 
 
-// AI SPEAK RESPONSE
+// AI SPEAK
 function speakAI(text){
 
   const speech =
@@ -512,12 +601,34 @@ function speakAI(text){
       text
     );
 
-  speech.lang =
-    'sw-TZ';
+
+
+  // AUTO LANGUAGE
+  if(
+
+    /[a-z]/i.test(text)
+
+  ){
+
+    speech.lang =
+      'en-US';
+
+  }
+
+  else{
+
+    speech.lang =
+      'sw-TZ';
+
+  }
+
+
 
   speech.rate = 1;
 
   speech.pitch = 1;
+
+
 
   window.speechSynthesis
     .speak(speech);
