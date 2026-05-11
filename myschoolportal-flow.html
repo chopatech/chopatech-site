@@ -1,18 +1,393 @@
-<!-- STEP 1 LANGUAGE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MySchoolPortal - Get Started</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#050b18;
+color:#fff;
+overflow:hidden;
+
+background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1920');
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+position:relative;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:rgba(5,11,24,.78);
+backdrop-filter:blur(2px);
+z-index:-1;
+}
+
+/* ================= SPLASH ================= */
+
+.splash{
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(rgba(5,11,24,.78),rgba(5,11,24,.9)),
+url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+overflow:hidden;
+}
+
+.splash::before{
+content:'';
+position:absolute;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#00ffff33,transparent 70%);
+animation:pulseGlow 4s ease infinite;
+}
+
+@keyframes pulseGlow{
+0%,100%{
+transform:scale(1);
+opacity:.5;
+}
+50%{
+transform:scale(1.3);
+opacity:1;
+}
+}
+
+.book{
+font-size:5rem;
+opacity:0;
+animation:bookPop 1.2s ease forwards;
+z-index:2;
+}
+
+.title{
+font-size:3rem;
+margin-top:20px;
+opacity:0;
+animation:fadeInUp 1s ease forwards;
+animation-delay:1.2s;
+
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+z-index:2;
+}
+
+.powered{
+margin-top:12px;
+font-size:1rem;
+color:#c5d3ef;
+opacity:0;
+animation:fadeInUp 1s ease forwards;
+animation-delay:2.2s;
+z-index:2;
+}
+
+@keyframes bookPop{
+0%{
+transform:scale(0) rotate(-20deg);
+opacity:0;
+}
+70%{
+transform:scale(1.2) rotate(10deg);
+opacity:1;
+}
+100%{
+transform:scale(1) rotate(0deg);
+opacity:1;
+}
+}
+
+@keyframes fadeInUp{
+from{
+transform:translateY(20px);
+opacity:0;
+}
+to{
+transform:translateY(0);
+opacity:1;
+}
+}
+
+/* Splash fade out */
+
+.splash.hide{
+animation:fadeOut 1s ease forwards;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* ================= MAIN ================= */
+
+.container{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:520px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.1);
+
+backdrop-filter:blur(20px);
+
+border-radius:25px;
+
+padding:35px;
+
+box-shadow:
+0 25px 50px rgba(0,0,0,.5),
+0 0 40px rgba(0,255,255,.08);
+}
+
+h2{
+margin-bottom:15px;
+color:#00ffff;
+font-size:1.8rem;
+}
+
+.small{
+font-size:.92rem;
+color:#a7b6d8;
+margin-top:12px;
+line-height:1.7;
+}
+
+/* Inputs */
+
+select,input{
+
+width:100%;
+
+padding:15px;
+
+margin:12px 0;
+
+border-radius:14px;
+
+border:1px solid rgba(255,255,255,.15);
+
+background:#0b1426;
+
+color:#fff;
+
+font-size:1rem;
+}
+
+select{
+appearance:none;
+-webkit-appearance:none;
+-moz-appearance:none;
+
+background:
+linear-gradient(145deg,#101b33,#0b1426);
+
+cursor:pointer;
+
+transition:.3s;
+}
+
+select:hover{
+border-color:#00ffff;
+}
+
+select:focus,
+input:focus{
+outline:none;
+border-color:#00ffff;
+box-shadow:0 0 20px rgba(0,255,255,.15);
+}
+
+option{
+background:#0b1426;
+color:white;
+}
+
+optgroup{
+background:#101b33;
+color:#00ffff;
+font-weight:700;
+}
+
+/* Buttons */
+
+button{
+width:100%;
+padding:15px;
+margin-top:12px;
+
+border:none;
+
+border-radius:14px;
+
+cursor:pointer;
+
+font-weight:700;
+
+font-size:1rem;
+
+transition:.3s;
+}
+
+.primary{
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+color:#04111f;
+}
+
+.secondary{
+background:rgba(255,255,255,.08);
+color:#fff;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+/* Steps */
+
+.step{
+display:none;
+animation:fadeStep .5s ease;
+}
+
+.step.active{
+display:block;
+}
+
+@keyframes fadeStep{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Dashboard */
+
+.dashboard{
+display:none;
+padding:40px;
+text-align:center;
+}
+
+.dashboard h1{
+font-size:3rem;
+
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.dashboard p{
+margin-top:20px;
+font-size:1.2rem;
+color:#c8d3ea;
+}
+
+/* Responsive */
+
+@media(max-width:600px){
+
+.title{
+font-size:2.3rem;
+}
+
+.card{
+padding:25px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SPLASH -->
+
+<div class="splash" id="splash">
+
+<div class="book">
+📖
+</div>
+
+<div class="title">
+MySchoolPortal
+</div>
+
+<div class="powered">
+Powered by ChopaTech
+</div>
+
+</div>
+
+<!-- ONBOARDING -->
+
+<div class="container" id="container">
+
+<div class="card">
+
+<!-- STEP 1 -->
+
 <div class="step active" id="step1">
 
-<h2>🌍 Select Language</h2>
+<h2>
+🌍 Select Language
+</h2>
 
-<select id="language">
+<select>
 
-<option value="">Choose Language</option>
+<option>Select Language</option>
 
 <option>English</option>
 <option>Swahili</option>
 <option>French</option>
 <option>Arabic</option>
-<option>Chinese</option>
 <option>Spanish</option>
+<option>Chinese</option>
 
 </select>
 
@@ -26,14 +401,17 @@ Continue
 
 </div>
 
-<!-- STEP 2 EDUCATION -->
+<!-- STEP 2 -->
+
 <div class="step" id="step2">
 
-<h2>🎓 Education Level</h2>
+<h2>
+🎓 Education Level
+</h2>
 
-<select id="education">
+<select>
 
-<option value="">Select Education Level</option>
+<option>Select Education Level</option>
 
 <option>Primary School</option>
 <option>Secondary School</option>
@@ -55,56 +433,63 @@ Continue
 
 </div>
 
-<!-- STEP 3 COURSES -->
+<!-- STEP 3 -->
+
 <div class="step" id="step3">
 
-<h2>📚 Select Learning Category</h2>
+<h2>
+📚 Select Course
+</h2>
 
-<select id="course">
+<select>
 
-<option value="">Choose Course Category</option>
+<option>Select Course Category</option>
 
 <optgroup label="💻 Computer & Technology">
+
 <option>Computer Science</option>
 <option>Programming</option>
 <option>Web Development</option>
 <option>Cyber Security</option>
 <option>Networking</option>
 <option>Artificial Intelligence</option>
-<option>Mobile App Development</option>
 <option>Graphics Design</option>
-<option>Video Editing</option>
 <option>UI/UX Design</option>
+<option>Video Editing</option>
+
 </optgroup>
 
 <optgroup label="🧪 Science">
+
 <option>Physics</option>
 <option>Chemistry</option>
 <option>Biology</option>
 <option>Mathematics</option>
-<option>Astronomy</option>
+
 </optgroup>
 
 <optgroup label="🎨 Arts & Culture">
+
 <option>Fine Arts</option>
-<option>Music Production</option>
+<option>Music</option>
 <option>Culture Studies</option>
-<option>Creative Writing</option>
 <option>Photography</option>
+
 </optgroup>
 
 <optgroup label="💼 Business">
+
 <option>Entrepreneurship</option>
-<option>Digital Marketing</option>
 <option>Finance</option>
-<option>Accounting</option>
+<option>Marketing</option>
 <option>E-Commerce</option>
+
 </optgroup>
 
 </select>
 
 <p class="small">
-Choose your learning interest
+Choose your learning category
 </p>
 
 <button class="primary" onclick="next(4)">
@@ -113,13 +498,16 @@ Continue
 
 </div>
 
-<!-- STEP 4 ROLE -->
+<!-- STEP 4 -->
+
 <div class="step" id="step4">
 
-<h2>🚀 Continue As</h2>
+<h2>
+🚀 Continue As
+</h2>
 
 <button class="primary" onclick="visitor()">
-👀 Visitor Mode
+👀 Visitor
 </button>
 
 <button class="secondary" onclick="newStudent()">
@@ -127,12 +515,161 @@ Continue
 </button>
 
 <p class="small">
-Visitors can browse content but cannot:
+
+Visitors can:
+
 <br><br>
-❌ Watch premium tutorials  
+
+✅ Browse dashboard  
+❌ Watch tutorials  
 ❌ Download files  
-❌ Access certificates  
-❌ Join live classes
+❌ Access premium lessons  
+❌ Receive certificates
+
 </p>
 
 </div>
+
+<!-- STEP 5 -->
+
+<div class="step" id="step5">
+
+<h2>
+🔐 Login
+</h2>
+
+<input
+type="email"
+placeholder="Enter Email"
+>
+
+<input
+type="password"
+placeholder="Enter Password"
+>
+
+<button class="primary" onclick="goDashboard('student')">
+Login
+</button>
+
+</div>
+
+<!-- STEP 6 -->
+
+<div class="step" id="step6">
+
+<h2>
+💳 Payment
+</h2>
+
+<p class="small">
+Complete payment to unlock premium student access
+</p>
+
+<button class="primary" onclick="pay()">
+Pay Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+<h1>
+Dashboard
+</h1>
+
+<p id="access"></p>
+
+</div>
+
+<script>
+
+/* SPLASH */
+
+setTimeout(()=>{
+document.getElementById('splash').classList.add('hide');
+},4000);
+
+setTimeout(()=>{
+document.getElementById('splash').style.display='none';
+document.getElementById('container').style.display='flex';
+},5000);
+
+/* Steps */
+
+function next(step){
+
+for(let i=1;i<=6;i++){
+
+document
+.getElementById('step'+i)
+.classList
+.remove('active');
+
+}
+
+document
+.getElementById('step'+step)
+.classList
+.add('active');
+
+}
+
+/* Visitor */
+
+function visitor(){
+
+goDashboard('visitor');
+
+}
+
+/* Student */
+
+function newStudent(){
+
+next(5);
+
+}
+
+/* Payment */
+
+function pay(){
+
+next(6);
+
+}
+
+/* Dashboard */
+
+function goDashboard(role){
+
+document.querySelector('.container')
+.style.display='none';
+
+document.getElementById('dashboard')
+.style.display='block';
+
+if(role==='visitor'){
+
+document.getElementById('access')
+.innerHTML='Visitor mode activated with limited access';
+
+}else{
+
+document.getElementById('access')
+.innerHTML='Premium Student Access Granted';
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
