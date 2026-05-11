@@ -192,30 +192,55 @@
 
 <script>
 
+// ===============================
+// CHOPATECH AI ASSISTANT PRO
+// Workers AI + Kiswahili + Voice
+// ===============================
+
+
 // NEW CHAT
 function newChat(){
 
-  document.getElementById('chatBox').innerHTML = `
-  
+  document.getElementById(
+    'chatBox'
+  ).innerHTML = `
+
     <div class="flex">
 
       <div
         class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
 
-        👋 New chat started.
+        👋 Karibu ChopaTech AI.
+
+        <br><br>
+
+        Unaweza:
+        <br>
+        • Kuongea Kiswahili
+        <br>
+        • Kuongea English
+        <br>
+        • Kutumia voice
+        <br>
+        • Ku-upload files
 
       </div>
 
     </div>
 
   `;
+
 }
+
+
 
 // SEND MESSAGE
 async function sendMessage(){
 
   const input =
-    document.getElementById('messageInput');
+    document.getElementById(
+      'messageInput'
+    );
 
   const text =
     input.value.trim();
@@ -223,7 +248,11 @@ async function sendMessage(){
   if(!text) return;
 
   const chatBox =
-    document.getElementById('chatBox');
+    document.getElementById(
+      'chatBox'
+    );
+
+
 
   // USER MESSAGE
   const user =
@@ -233,7 +262,7 @@ async function sendMessage(){
     'flex justify-end';
 
   user.innerHTML = `
-  
+
     <div
       class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
 
@@ -247,7 +276,9 @@ async function sendMessage(){
 
   input.value = '';
 
-  // LOADING
+
+
+  // AI THINKING
   const loading =
     document.createElement('div');
 
@@ -255,11 +286,11 @@ async function sendMessage(){
     'flex';
 
   loading.innerHTML = `
-  
-    <div
-      class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
 
-      🤖 Thinking...
+    <div
+      class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%] animate-pulse">
+
+      🤖 ChopaTech AI is thinking...
 
     </div>
 
@@ -270,18 +301,21 @@ async function sendMessage(){
   chatBox.scrollTop =
     chatBox.scrollHeight;
 
+
+
   try{
 
-    // WORKERS AI URL
+    // CONNECT TO WORKERS AI
     const response =
       await fetch(
-        "https://chopatech-ai.chopatechtz.workers.dev",
+        "https://chopatech-ai.chopatechtz.workers.dev/",
         {
 
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type":
+              "application/json"
           },
 
           body: JSON.stringify({
@@ -291,7 +325,9 @@ async function sendMessage(){
         }
       );
 
-    // CHECK RESPONSE
+
+
+    // CHECK SERVER
     if(!response.ok){
 
       throw new Error(
@@ -300,10 +336,26 @@ async function sendMessage(){
 
     }
 
+
+
     const data =
       await response.json();
 
     loading.remove();
+
+
+
+    // GET AI RESPONSE
+    const aiResponse =
+
+      data.response ||
+
+      data.result?.response ||
+
+      "Samahani, hakuna response.";
+
+
+
 
     // AI MESSAGE
     const ai =
@@ -313,14 +365,11 @@ async function sendMessage(){
       'flex';
 
     ai.innerHTML = `
-    
+
       <div
         class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
 
-        🤖 ${
-          data.response ||
-          "No response from AI."
-        }
+        🤖 ${aiResponse}
 
       </div>
 
@@ -331,12 +380,22 @@ async function sendMessage(){
     chatBox.scrollTop =
       chatBox.scrollHeight;
 
+
+
+    // SPEAK RESPONSE
+    speakAI(aiResponse);
+
+
+
   }
 
   catch(error){
 
     loading.remove();
 
+
+
+    // ERROR MESSAGE
     const err =
       document.createElement('div');
 
@@ -344,19 +403,21 @@ async function sendMessage(){
       'flex';
 
     err.innerHTML = `
-    
+
       <div
         class="bg-red-500/20 border border-red-500 rounded-3xl p-5 max-w-[70%]">
 
-        ❌ Failed to connect to AI.<br><br>
+        ❌ AI haijaunganishwa vizuri.
 
-        Check:
+        <br><br>
+
+        Hakikisha:
         <br>
-        • Worker URL
+        • Worker URL ni sahihi
         <br>
-        • Worker deployment
+        • Worker imedeploy
         <br>
-        • Workers AI binding
+        • Workers AI binding ipo
 
       </div>
 
@@ -370,32 +431,57 @@ async function sendMessage(){
 
 }
 
-// VOICE TALK
+
+
+// VOICE INPUT
 function startVoice(){
 
   if(
-    !('webkitSpeechRecognition' in window)
+    !(
+      'webkitSpeechRecognition'
+      in window
+    )
   ){
 
     alert(
-      "Speech recognition not supported."
+      "Browser yako haisupport voice recognition."
     );
 
     return;
+
   }
+
+
 
   const recognition =
     new webkitSpeechRecognition();
 
-  recognition.lang = 'en-US';
+  recognition.lang =
+    'sw-TZ';
+
+
 
   recognition.start();
+
+
+
+  recognition.onstart =
+    function(){
+
+      console.log(
+        "Voice started..."
+      );
+
+    };
+
+
 
   recognition.onresult =
     function(event){
 
       const transcript =
-        event.results[0][0].transcript;
+        event.results[0][0]
+        .transcript;
 
       document.getElementById(
         'messageInput'
@@ -403,7 +489,42 @@ function startVoice(){
 
     };
 
+
+
+  recognition.onerror =
+    function(){
+
+      alert(
+        "Voice recognition error."
+      );
+
+    };
+
 }
+
+
+
+// AI SPEAK RESPONSE
+function speakAI(text){
+
+  const speech =
+    new SpeechSynthesisUtterance(
+      text
+    );
+
+  speech.lang =
+    'sw-TZ';
+
+  speech.rate = 1;
+
+  speech.pitch = 1;
+
+  window.speechSynthesis
+    .speak(speech);
+
+}
+
+
 
 // FILE UPLOAD
 function uploadFile(event){
@@ -413,18 +534,27 @@ function uploadFile(event){
 
   if(!file) return;
 
+
+
   document.getElementById(
     'uploadPreview'
   ).classList.remove('hidden');
 
+
+
   document.getElementById(
     'fileName'
-  ).innerText = file.name;
+  ).innerText =
+    file.name;
+
+
 
   const chatBox =
     document.getElementById(
       'chatBox'
     );
+
+
 
   const upload =
     document.createElement('div');
@@ -432,8 +562,10 @@ function uploadFile(event){
   upload.className =
     'flex justify-end';
 
+
+
   upload.innerHTML = `
-  
+
     <div
       class="bg-blue-500 rounded-3xl p-5 max-w-[70%]">
 
@@ -451,6 +583,8 @@ function uploadFile(event){
 
 }
 
+
+
 // REMOVE FILE
 function removeUpload(){
 
@@ -459,6 +593,40 @@ function removeUpload(){
   ).classList.add('hidden');
 
 }
+
+
+
+// ENTER KEY SEND
+document
+  .getElementById(
+    'messageInput'
+  )
+
+  .addEventListener(
+    'keydown',
+
+    function(event){
+
+      if(
+        event.key === 'Enter'
+        &&
+        !event.shiftKey
+      ){
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+
+    }
+
+);
+
+
+
+// AUTO START
+newChat();
 
 </script>
 
