@@ -162,6 +162,68 @@
 
       <div class="flex gap-4 items-center">
 
+        
+      <!-- ===================================== -->
+<!-- MODEL + LANGUAGE SELECT -->
+<!-- WEKA JUU YA TEXTAREA -->
+<!-- ===================================== -->
+
+<div class="grid grid-cols-2 gap-4 mb-4">
+
+  <!-- MODEL SELECT -->
+  <select
+    id="modelSelect"
+    class="p-4 rounded-2xl bg-white/10 border border-white/10 outline-none text-white">
+
+    <option value="@cf/meta/llama-3.1-8b-instruct">
+      Llama 3.1
+    </option>
+
+    <option value="@cf/meta/llama-3-8b-instruct">
+      Llama 3 8B
+    </option>
+
+    <option value="@cf/mistralai/mistral-7b-instruct-v0.1">
+      Mistral 7B
+    </option>
+
+    <option value="@cf/qwen/qwen1.5-14b-chat-awq">
+      Qwen 14B
+    </option>
+
+    <option value="@cf/google/gemma-7b-it">
+      Gemma 7B
+    </option>
+
+    <option value="gpt-style">
+      GPT Style Assistant
+    </option>
+
+  </select>
+
+
+
+  <!-- LANGUAGE SELECT -->
+  <select
+    id="languageSelect"
+    class="p-4 rounded-2xl bg-white/10 border border-white/10 outline-none text-white">
+
+    <option value="auto">
+      Auto Detect
+    </option>
+
+    <option value="english">
+      English Only
+    </option>
+
+    <option value="swahili">
+      Kiswahili Only
+    </option>
+
+  </select>
+
+</div>
+
         <textarea
           id="messageInput"
           rows="1"
@@ -308,37 +370,46 @@ async function sendMessage(){
 
   try{
 
-    // FETCH AI
-    const response =
-      await fetch(
+// =====================================
+// FETCH UPDATE
+// WEKA NDANI YA sendMessage()
+// =====================================
 
-        "https://chopatech-ai.chopatechtz.workers.dev/",
+const response =
+  await fetch(
 
-        {
+    "https://chopatech-ai.chopatechtz.workers.dev/",
 
-          method: "POST",
+    {
 
-          headers: {
+      method: "POST",
 
-            "Content-Type":
-              "application/json"
+      headers: {
 
-          },
+        "Content-Type":
+          "application/json"
 
-          body: JSON.stringify({
+      },
 
-            message: text,
+      body: JSON.stringify({
 
-            model:
-              document.getElementById(
-                'modelSelect'
-              ).value
+        message: text,
 
-          })
+        model:
+          document.getElementById(
+            'modelSelect'
+          ).value,
 
-        }
+        language:
+          document.getElementById(
+            'languageSelect'
+          ).value
 
-      );
+      })
+
+    }
+
+);
 
 
 
