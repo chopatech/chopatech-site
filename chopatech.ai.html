@@ -338,9 +338,60 @@ async function sendMessage(){
   `;
 
   chatBox.appendChild(user);
+  
 
   input.value = '';
 
+  // ======================================
+// IMAGE REFERENCES
+// ======================================
+
+const imageKeywords = [
+
+  "image",
+  "picture",
+  "photo",
+  "design",
+  "logo",
+  "website",
+  "ui",
+  "car",
+  "house",
+  "fashion",
+  "technology",
+  "computer",
+  "phone",
+  "nature",
+  "robot",
+  "ai",
+  "anime"
+
+];
+
+
+
+const matched = imageKeywords.find(
+  keyword =>
+    text.toLowerCase()
+    .includes(keyword)
+);
+
+
+
+if(matched){
+
+  const image =
+    document.createElement('img');
+
+  image.src =
+    `https://source.unsplash.com/900x500/?${matched}`;
+
+  image.className =
+    "rounded-3xl mt-4 border border-white/10";
+
+  ai.appendChild(image);
+
+}
 
 
   // LOADING
