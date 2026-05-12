@@ -192,10 +192,9 @@
 
 <script>
 
-// ===============================
-// CHOPATECH AI ULTIMATE SYSTEM
-// Workers AI + Voice + Smart Language
-// ===============================
+// ======================================
+// CHOPATECH AI FRONTEND JAVASCRIPT
+// ======================================
 
 
 // NEW CHAT
@@ -216,13 +215,11 @@ function newChat(){
 
         Ninaweza:
         <br>
-        • Kuzungumza Kiswahili
+        • Kujibu Kiswahili
         <br>
-        • Kuzungumza English
+        • Kujibu English
         <br>
         • Kupokea voice
-        <br>
-        • Kujibu kwa sauti
         <br>
         • Kusaidia coding
         <br>
@@ -251,6 +248,8 @@ async function sendMessage(){
 
   if(!text) return;
 
+
+
   const chatBox =
     document.getElementById(
       'chatBox'
@@ -268,7 +267,7 @@ async function sendMessage(){
   user.innerHTML = `
 
     <div
-      class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%] shadow-2xl">
+      class="bg-emerald-500 text-black rounded-3xl p-5 max-w-[70%]">
 
       ${text}
 
@@ -282,7 +281,7 @@ async function sendMessage(){
 
 
 
-  // AI THINKING
+  // LOADING
   const loading =
     document.createElement('div');
 
@@ -309,29 +308,41 @@ async function sendMessage(){
 
   try{
 
-    // CONNECT TO WORKERS AI
+    // FETCH AI
     const response =
       await fetch(
+
         "https://chopatech-ai.chopatechtz.workers.dev/",
+
         {
 
           method: "POST",
 
           headers: {
+
             "Content-Type":
               "application/json"
+
           },
 
           body: JSON.stringify({
-            message: text
+
+            message: text,
+
+            model:
+              document.getElementById(
+                'modelSelect'
+              ).value
+
           })
 
         }
+
       );
 
 
 
-    // SERVER ERROR
+    // CHECK RESPONSE
     if(!response.ok){
 
       throw new Error(
@@ -345,6 +356,8 @@ async function sendMessage(){
     const data =
       await response.json();
 
+
+
     loading.remove();
 
 
@@ -356,23 +369,25 @@ async function sendMessage(){
 
       data.result?.response ||
 
-      "Samahani, hakuna response.";
+      "Samahani hakuna majibu.";
 
 
 
 
 
-    // CREATE AI MESSAGE
+    // AI BOX
     const ai =
       document.createElement('div');
 
     ai.className =
       'flex';
 
+
+
     ai.innerHTML = `
 
       <div
-        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%] backdrop-blur-xl">
+        class="bg-white/10 border border-white/10 rounded-3xl p-5 max-w-[70%]">
 
         <div id="typing"></div>
 
@@ -382,52 +397,21 @@ async function sendMessage(){
 
     chatBox.appendChild(ai);
 
-    chatBox.scrollTop =
-      chatBox.scrollHeight;
 
 
-
-    // TYPING EFFECT
+    // TYPE EFFECT
     typeWriterEffect(
+
       ai.querySelector('#typing'),
+
       aiResponse
+
     );
 
 
 
-    // AI SPEAK
-    speakAI(aiResponse);
-
-
-
-
-    // IMAGE REFERENCE
-    if(
-
-      text.includes("image")
-      ||
-      text.includes("picture")
-      ||
-      text.includes("photo")
-      ||
-      text.includes("onyesha")
-      ||
-      text.includes("picha")
-
-    ){
-
-      const image =
-        document.createElement('img');
-
-      image.src =
-        "https://source.unsplash.com/800x500/?technology";
-
-      image.className =
-        "rounded-3xl mt-4 border border-white/10";
-
-      ai.appendChild(image);
-
-    }
+    chatBox.scrollTop =
+      chatBox.scrollHeight;
 
 
 
@@ -445,22 +429,14 @@ async function sendMessage(){
     err.className =
       'flex';
 
+
+
     err.innerHTML = `
 
       <div
         class="bg-red-500/20 border border-red-500 rounded-3xl p-5 max-w-[70%]">
 
         ❌ AI haijaunganishwa vizuri.
-
-        <br><br>
-
-        Hakikisha:
-        <br>
-        • Worker URL ni sahihi
-        <br>
-        • Worker imedeploy
-        <br>
-        • Workers AI binding ipo
 
       </div>
 
@@ -521,7 +497,7 @@ function startVoice(){
   ){
 
     alert(
-      "Browser yako haisupport voice recognition."
+      "Browser yako haisupport voice."
     );
 
     return;
@@ -535,7 +511,6 @@ function startVoice(){
 
 
 
-  // SMART LANGUAGE
   recognition.lang =
     'en-US';
 
@@ -552,27 +527,21 @@ function startVoice(){
 
 
 
-  recognition.onstart =
-    function(){
-
-      console.log(
-        "Voice listening..."
-      );
-
-    };
-
-
-
   recognition.onresult =
     function(event){
 
       const transcript =
+
         event.results[0][0]
         .transcript;
+
+
 
       document.getElementById(
         'messageInput'
       ).value = transcript;
+
+
 
       sendMessage();
 
@@ -584,54 +553,10 @@ function startVoice(){
     function(){
 
       alert(
-        "Voice recognition error."
+        "Voice error."
       );
 
     };
-
-}
-
-
-
-// AI SPEAK
-function speakAI(text){
-
-  const speech =
-    new SpeechSynthesisUtterance(
-      text
-    );
-
-
-
-  // AUTO LANGUAGE
-  if(
-
-    /[a-z]/i.test(text)
-
-  ){
-
-    speech.lang =
-      'en-US';
-
-  }
-
-  else{
-
-    speech.lang =
-      'sw-TZ';
-
-  }
-
-
-
-  speech.rate = 1;
-
-  speech.pitch = 1;
-
-
-
-  window.speechSynthesis
-    .speak(speech);
 
 }
 
@@ -707,21 +632,24 @@ function removeUpload(){
 
 
 
-// ENTER KEY SEND
+// ENTER SEND
 document
   .getElementById(
     'messageInput'
   )
 
   .addEventListener(
+
     'keydown',
 
     function(event){
 
       if(
+
         event.key === 'Enter'
         &&
         !event.shiftKey
+
       ){
 
         event.preventDefault();
@@ -736,7 +664,7 @@ document
 
 
 
-// AUTO START
+// START
 newChat();
 
 </script>
