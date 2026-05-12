@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MySchoolPortal Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BASE ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#050b18;
+color:#fff;
+display:flex;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+width:260px;
+background:rgba(255,255,255,.04);
+backdrop-filter:blur(20px);
+border-right:1px solid rgba(255,255,255,.08);
+padding:20px;
+}
+
+.logo{
+font-size:1.5rem;
+font-weight:800;
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:25px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu button{
+background:transparent;
+border:1px solid rgba(255,255,255,.08);
+color:white;
+padding:12px;
+border-radius:10px;
+cursor:pointer;
+transition:.3s;
+text-align:left;
+}
+
+.menu button:hover{
+background:rgba(0,255,255,.08);
+border-color:#00ffff;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+flex:1;
+padding:25px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.header h1{
+font-size:2rem;
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:15px;
+padding:20px;
+transition:.3s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-5px);
+border-color:#00ffff;
+}
+
+.card h3{
+margin-bottom:10px;
+color:#00ffff;
+}
+
+.card p{
+color:#a7b6d8;
+font-size:.9rem;
+}
+
+/* ================= CONTENT ================= */
+
+.contentBox{
+margin-top:20px;
+padding:20px;
+background:rgba(255,255,255,.04);
+border-radius:15px;
+display:none;
+}
+
+.tabs{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+flex-wrap:wrap;
+}
+
+.tab{
+padding:10px 15px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,.1);
+cursor:pointer;
+background:transparent;
+color:white;
+}
+
+.tab.active{
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+color:#04111f;
+}
+
+/* ================= LOCK ================= */
+
+.lock{
+color:#ff4d4d;
+font-weight:600;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<div class="logo">MySchoolPortal</div>
+
+<div class="menu">
+
+<button onclick="loadCourse('computer')">💻 Computer</button>
+<button onclick="loadCourse('science')">🧪 Science</button>
+<button onclick="loadCourse('arts')">🎨 Arts</button>
+<button onclick="loadCourse('business')">💼 Business</button>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+<h1 id="title">Dashboard</h1>
+</div>
+
+<!-- COURSES GRID -->
+<div class="grid" id="courseGrid">
+
+<div class="card" onclick="loadCourse('computer')">
+<h3>Computer Science</h3>
+<p>Programming, AI, Networking, Cyber Security</p>
+</div>
+
+<div class="card" onclick="loadCourse('science')">
+<h3>Science</h3>
+<p>Physics, Chemistry, Biology, Mathematics</p>
+</div>
+
+<div class="card" onclick="loadCourse('arts')">
+<h3>Arts & Culture</h3>
+<p>Music, Design, Photography, Culture</p>
+</div>
+
+<div class="card" onclick="loadCourse('business')">
+<h3>Business</h3>
+<p>Finance, Marketing, Entrepreneurship</p>
+</div>
+
+</div>
+
+<!-- COURSE CONTENT -->
+<div class="contentBox" id="contentBox">
+
+<div class="tabs">
+
+<button class="tab active" onclick="showTab('video')">🎥 Video</button>
+<button class="tab" onclick="showTab('book')">📖 Books</button>
+<button class="tab" onclick="showTab('podcast')">🎧 Podcast</button>
+<button class="tab" onclick="showTab('project')">🧪 Projects</button>
+
+</div>
+
+<div id="contentArea">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let userRole = localStorage.getItem("role") || "visitor";
+
+/* LOAD COURSE */
+
+function loadCourse(name){
+
+document.getElementById("contentBox").style.display="block";
+
+document.getElementById("title").innerText = name.toUpperCase() + " Course";
+
+showTab("video");
+
+}
+
+/* TABS */
+
+function showTab(type){
+
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+event.target.classList.add("active");
+
+let locked = userRole === "visitor";
+
+let content = "";
+
+if(type==="video"){
+
+content = `
+<h3>🎥 Video Lessons</h3>
+<p>Watch structured tutorials for this course</p>
+${locked ? "<div class='lock'>🔒 Upgrade to access videos</div>" : "<iframe width='100%' height='250' src='https://www.youtube.com/embed/dQw4w9WgXcQ'></iframe>"}
+`;
+
+}
+
+if(type==="book"){
+
+content = `
+<h3>📖 E-Books</h3>
+<p>Download learning materials</p>
+${locked ? "<div class='lock'>🔒 Visitor cannot download books</div>" : "<p>✔ PDF Book 1<br>✔ PDF Book 2</p>"}
+`;
+
+}
+
+if(type==="podcast"){
+
+content = `
+<h3>🎧 Podcasts</h3>
+<p>Listen to expert lessons</p>
+<audio controls ${locked ? "disabled" : ""}>
+<source src="">
+</audio>
+${locked ? "<div class='lock'>🔒 Upgrade for podcast access</div>" : ""}
+`;
+
+}
+
+if(type==="project"){
+
+content = `
+<h3>🧪 Projects</h3>
+<p>Real world assignments</p>
+${locked ? "<div class='lock'>🔒 Projects available for students only</div>" : "<p>Build: Website, App, AI chatbot project</p>"}
+`;
+
+}
+
+document.getElementById("contentArea").innerHTML = content;
+
+}
+
+/* ROLE SET FROM LOGIN */
+
+function setRole(role){
+userRole = role;
+localStorage.setItem("role", role);
+}
+
+</script>
+
+</body>
+</html>
