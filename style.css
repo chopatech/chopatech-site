@@ -6,13 +6,12 @@ font-family:Inter,Arial,sans-serif;
 }
 
 body{
-background:#06111f;
-background-image:url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=80');
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-color:white;
-line-height:1.6;
+  background:#050b18;
+  background-image:none;
+  background-color:#050b18;
+  color:white;
+  line-height:1.6;
+  overflow-x:hidden;
 }
 
 body::before{
@@ -621,13 +620,42 @@ body{
 
 /* ===== BACKGROUND GRID ===== */
 .grid-bg{
-  position:fixed;
-  inset:0;
+position:fixed;
+inset:0;
+z-index:-1;
+pointer-events:none;
+
+  /* 3D pop: tries your logo, falls back to existing tech background */
   background-image:
-  linear-gradient(rgba(0,255,255,.03) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(0,255,255,.03) 1px, transparent 1px);
-  background-size:40px 40px;
-  z-index:-1;
+    radial-gradient(900px 600px at 20% 15%, rgba(0,255,255,.10), transparent 60%),
+    radial-gradient(700px 450px at 85% 25%, rgba(127,127,255,.10), transparent 55%),
+    url('assets/chopatech-logo.png'),
+    url('assets/tech-bg.svg');
+
+  background-size:
+    100% 100%,
+    100% 100%,
+    58% auto;
+
+  background-position:
+    center,
+    center,
+    50% 42%;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat;
+
+  /* tilt + depth */
+  transform-origin:50% 50%;
+  transform:
+    perspective(1100px)
+    rotateX(10deg)
+    rotateZ(-2deg)
+    scale(1.02);
+
+  filter: saturate(1.05) contrast(1.06) brightness(.98);
 }
 
 /* subtle glow */
@@ -786,8 +814,121 @@ footer{
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
+  /* Navbar: keep it usable on small screens */
+  .navbar{
+    padding:14px 4%;
+    gap:12px;
+  }
+
+  nav{
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
   nav a{
-    margin-left:12px;
-    font-size:.9rem;
+    margin-left:0;
+    font-size:.85rem;
+  }
+
+  /* Hero: avoid oversized headings overflowing */
+  .hero{
+    padding:90px 14px 40px;
+  }
+
+  .hero h1{
+    font-size:clamp(2.1rem,7vw,3rem);
+    line-height:1.05;
+  }
+
+  .hero p{
+    font-size:1rem;
+  }
+
+  .hero-tiles{
+    gap:14px;
+    margin-top:26px;
+  }
+
+  .hero-tile{
+    padding:16px 16px;
+    border-radius:14px;
+    max-width:100%;
+  }
+
+  .hero-tile .tile-text{
+    font-size:.98rem;
+  }
+
+  /* Cards/grids should stack tighter */
+  .cards,
+  .stats,
+  .projects,
+  .grid-2,
+  .service-grid{
+    padding:26px 12px;
+    gap:16px;
+  }
+
+  .card,
+  .stat,
+  .project,
+  .service-card{
+    padding:22px 18px;
+    border-radius:16px;
+  }
+
+  .section-title{
+    font-size:2rem;
+    margin:40px 0 22px;
+    padding:0 10px;
+  }
+
+  /* Social floating buttons: move to bottom-right on mobile */
+  .social-float{
+    bottom:110px;
+    left:auto;
+    right:18px;
+    gap:10px;
+  }
+
+  .whatsapp-float,
+  .instagram-float,
+  .tiktok-float,
+  .facebook-float,
+  .youtube-float{
+    width:52px;
+    height:52px;
+  }
+
+  .whatsapp-float svg,
+  .instagram-float svg,
+  .tiktok-float svg,
+  .facebook-float svg,
+  .youtube-float svg{
+    width:24px;
+    height:24px;
+  }
+
+  /* Chat widget: fit within viewport */
+  .chat-float{
+    width:92vw;
+    right:4vw;
+    bottom:16px;
+    max-height:52vh;
+  }
+
+  .chat-float #chatBox{
+    height:28vh;
+    padding:12px;
+  }
+
+  .chat-float .chat-input-row{
+    padding:12px;
+  }
+
+  .chat-float .chat-input-row button{
+    padding:12px 16px;
+    white-space:nowrap;
   }
 }
