@@ -6,9 +6,9 @@ font-family:Inter,Arial,sans-serif;
 }
 
 body{
-  background:#050b18;
+  background:transparent;
   background-image:none;
-  background-color:#050b18;
+  background-color:transparent;
   color:white;
   line-height:1.6;
   overflow-x:hidden;
@@ -19,7 +19,7 @@ content:'';
 position:fixed;
 inset:0;
 background:rgba(6,17,31,.5);
-z-index:-1;
+z-index:0;
 pointer-events:none;
 }
 
@@ -33,9 +33,10 @@ position:fixed;
 inset:0;
 background-image:
 linear-gradient(rgba(0,255,255,.03) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,255,255,.03) 1px,transparent 1px);
+linear-gradient(90deg,rgba(0,255,255,.03) 1px,transparent 1px),
+url('https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-code-on-the-screen-lYFERR5dTG4');
 background-size:40px 40px;
-z-index:-1;
+z-index:0;
 }
 
 .navbar{
@@ -667,7 +668,7 @@ body{
 .grid-bg{
 position:fixed;
 inset:0;
-z-index:-1;
+z-index:0;
 pointer-events:none;
 
   /* 3D pop: tries your logo, falls back to existing tech background */
