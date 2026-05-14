@@ -59,19 +59,26 @@ content="ChopaTech, web design Tanzania, AI development, networking services, so
 <div class="grid-bg"></div>
 
 <header class="navbar">
-<div class="logo">CHOPATECH</div>
-<nav>
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="portfolio.html">Portfolio</a>
-<a href="tutorials.html">Tutorials</a>
-<a href="contact.html">Contact</a>
-</nav>
-<div class="nav-search">
-<input type="text" placeholder="Search...">
-<button type="button">🔍</button>
-</div>
-<a class="btn small" href="contact.html">Start Project</a>
+  <div class="logo">CHOPATECH</div>
+
+  <button id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="mainNav" class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="tutorials.html">Tutorials</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search...">
+    <button type="button">🔍</button>
+  </div>
+
+  <a class="btn small" href="contact.html">Start Project</a>
 </header>
 
 <section class="hero">
@@ -123,7 +130,7 @@ content="ChopaTech, web design Tanzania, AI development, networking services, so
 </div>
 </section>
 
-<section id="ai" class="reveal ai-panel chat-float">
+<section id="ai" class="reveal ai-panel chat-float" aria-hidden="true">
 <h2 class="section-title">Chopa AI Assistant</h2>
 <div class="chat-shell">
 <div id="chatBox" class="chat-box">
@@ -135,6 +142,10 @@ content="ChopaTech, web design Tanzania, AI development, networking services, so
 </div>
 </div>
 </section>
+
+<div id="botToggle" class="bot-toggle" role="button" tabindex="0" aria-label="Open Chopa AI Assistant" onclick="toggleChatWidget()">
+🤖
+</div>
 
 <div class="social-float">
 <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
