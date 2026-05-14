@@ -18,7 +18,7 @@ body::before{
 content:'';
 position:fixed;
 inset:0;
-background:rgba(6,17,31,.5);
+background:rgba(0,0,0,0);
 z-index:0;
 pointer-events:none;
 }
@@ -31,11 +31,10 @@ color:white;
 .grid-bg{
 position:fixed;
 inset:0;
-background-image:
-linear-gradient(rgba(0,255,255,.03) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,255,255,.03) 1px,transparent 1px),
-url('https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-code-on-the-screen-lYFERR5dTG4');
-background-size:40px 40px;
+background-image:url('https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-code-on-the-screen-lYFERR5dTG4');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 z-index:0;
 }
 
@@ -659,7 +658,8 @@ fill:white;
 }
 
 body{
-  background:#050b18;
+  background:transparent;
+  background-color:transparent;
   color:white;
   overflow-x:hidden;
 }
@@ -676,7 +676,7 @@ pointer-events:none;
     radial-gradient(900px 600px at 20% 15%, rgba(0,255,255,.10), transparent 60%),
     radial-gradient(700px 450px at 85% 25%, rgba(127,127,255,.10), transparent 55%),
     linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-    url('https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-code-on-the-screen-lYFERR5dTG4');
+url('https://source.unsplash.com/lYFERR5dTG4/2000x1200');
 
   background-size:
     100% 100%,
@@ -693,15 +693,10 @@ pointer-events:none;
     no-repeat,
     no-repeat;
 
-  /* tilt + depth */
-  transform-origin:50% 50%;
-  transform:
-    perspective(1100px)
-    rotateX(10deg)
-    rotateZ(-2deg)
-    scale(1.02);
-
-  filter: saturate(1.05) contrast(1.06) brightness(.98);
+  /* remove 3D transforms that can make the background hard to see */
+  transform: none;
+  transform-origin: initial;
+  filter: none;
 }
 
 /* subtle glow */
