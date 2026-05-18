@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Future Tech Projects</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Inter', sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* 3D Canvas */
+#bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+/* Layout */
+.container{
+  display:flex;
+  height:100vh;
+}
+
+/* Sections */
+.section{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:40px;
+  backdrop-filter: blur(10px);
+}
+
+/* Divider */
+.divider{
+  width:2px;
+  background:linear-gradient(to bottom, transparent, #00f7ff, transparent);
+  box-shadow:0 0 20px #00f7ff;
+}
+
+/* Glass Card */
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:40px;
+  width:90%;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,255,255,0.2);
+  transition:0.4s ease;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 60px rgba(0,255,255,0.5);
+}
+
+h1{
+  font-family:'Orbitron', sans-serif;
+  font-size:2rem;
+  margin-bottom:10px;
+  letter-spacing:2px;
+}
+
+p{
+  font-size:0.95rem;
+  opacity:0.8;
+  line-height:1.6;
+  margin-top:10px;
+}
+
+/* Buttons */
+.btn{
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00f7ff,#7c4dff);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px #00f7ff;
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .container{
+    flex-direction:column;
+  }
+  .divider{
+    height:2px;
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+
+  <!-- Left Section -->
+  <div class="section">
+    <div class="card">
+      <h1>LetDiscussTech</h1>
+      <p>
+        A future hub for discussing modern computer science ideas,
+        AI innovation, software engineering trends, and creative tech solutions.
+      </p>
+      <button class="btn">Explore Ideas</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Right Section -->
+  <div class="section">
+    <div class="card">
+      <h1>Tech21Century</h1>
+      <p>
+        Building the future of engineering and digital systems with
+        immersive technology, robotics, AI systems, and 3D interactive learning.
+      </p>
+      <button class="btn">Join Future</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+// Scene setup
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById("bg"),
+  alpha: true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.z = 5;
+
+// Particles (3D floating tech dots)
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesCount = 1500;
+
+const posArray = new Float32Array(particlesCount * 3);
+
+for(let i=0; i<particlesCount * 3; i++){
+  posArray[i] = (Math.random() - 0.5) * 10;
+}
+
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.01,
+  color: 0x00f7ff
+});
+
+const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particlesMesh);
+
+// Animation
+function animate(){
+  requestAnimationFrame(animate);
+
+  particlesMesh.rotation.y += 0.001;
+  particlesMesh.rotation.x += 0.0005;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize', ()=>{
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+</script>
+
+</body>
+</html>
