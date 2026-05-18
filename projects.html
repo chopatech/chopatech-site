@@ -1,216 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Future Tech Projects</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FutureTech Hub</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-body{
-  font-family: 'Inter', sans-serif;
-  background:#000;
-  color:#fff;
-  overflow-x:hidden;
-}
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-/* 3D Canvas */
-#bg{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-}
-
-/* Layout */
-.container{
-  display:flex;
-  height:100vh;
-}
-
-/* Sections */
-.section{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  padding:40px;
-  backdrop-filter: blur(10px);
-}
-
-/* Divider */
-.divider{
-  width:2px;
-  background:linear-gradient(to bottom, transparent, #00f7ff, transparent);
-  box-shadow:0 0 20px #00f7ff;
-}
-
-/* Glass Card */
-.card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  padding:40px;
-  width:90%;
-  max-width:500px;
-  text-align:center;
-  box-shadow:0 0 40px rgba(0,255,255,0.2);
-  transition:0.4s ease;
-}
-
-.card:hover{
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 0 60px rgba(0,255,255,0.5);
-}
-
-h1{
-  font-family:'Orbitron', sans-serif;
-  font-size:2rem;
-  margin-bottom:10px;
-  letter-spacing:2px;
-}
-
-p{
-  font-size:0.95rem;
-  opacity:0.8;
-  line-height:1.6;
-  margin-top:10px;
-}
-
-/* Buttons */
-.btn{
-  margin-top:20px;
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(90deg,#00f7ff,#7c4dff);
-  color:white;
-  cursor:pointer;
-  font-weight:600;
-  transition:0.3s;
-}
-
-.btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00f7ff;
-}
-
-/* Mobile */
-@media(max-width:768px){
-  .container{
-    flex-direction:column;
-  }
-  .divider{
-    height:2px;
-    width:100%;
-  }
-}
-</style>
 </head>
 
-<body>
+<body class="bg-black">
 
-<canvas id="bg"></canvas>
+<div id="root"></div>
 
-<div class="container">
+<script type="text/babel">
 
-  <!-- Left Section -->
-  <div class="section">
-    <div class="card">
-      <h1>LetDiscussTech</h1>
-      <p>
-        A future hub for discussing modern computer science ideas,
-        AI innovation, software engineering trends, and creative tech solutions.
-      </p>
-      <button class="btn">Explore Ideas</button>
+const { useState } = React;
+
+function FutureTechProjectsPage() {
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-black text-white overflow-hidden font-sans relative">
+
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e3a8a22,transparent_40%),radial-gradient(circle_at_bottom_left,#06b6d422,transparent_40%)]"></div>
+
+      {/* Floating Blur */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full animate-pulse"></div>
+
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full animate-pulse"></div>
+
+      {/* Navbar */}
+      <header className="relative z-50 border-b border-white/10 backdrop-blur-xl bg-white/5 sticky top-0">
+
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-4">
+
+          {/* LEFT SIDE */}
+          <div className="flex items-center gap-4">
+
+            {/* THREE LINE MENU */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex flex-col gap-[5px] md:hidden"
+            >
+              <span className="w-7 h-[3px] bg-white rounded-full"></span>
+              <span className="w-7 h-[3px] bg-white rounded-full"></span>
+              <span className="w-7 h-[3px] bg-white rounded-full"></span>
+            </button>
+
+            {/* LOGO */}
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+              FutureTech Hub
+            </h1>
+
+          </div>
+
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+
+            <a href="#" className="hover:text-cyan-400 transition">
+              Home
+            </a>
+
+            <a href="#projects" className="hover:text-cyan-400 transition">
+              Projects
+            </a>
+
+            <a href="#innovation" className="hover:text-cyan-400 transition">
+              Innovation
+            </a>
+
+            <a href="#contact" className="hover:text-cyan-400 transition">
+              Contact
+            </a>
+
+          </nav>
+
+          {/* DESKTOP BUTTON */}
+          <button className="hidden md:block bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-2 rounded-full hover:scale-105 transition shadow-lg shadow-cyan-500/30">
+            Explore
+          </button>
+
+        </div>
+
+        {/* MOBILE MENU */}
+        {menuOpen && (
+
+          <div className="md:hidden px-6 pb-6 flex flex-col gap-5 text-gray-300 bg-black/80 backdrop-blur-xl">
+
+            <a href="#" className="hover:text-cyan-400 transition">
+              Home
+            </a>
+
+            <a href="#projects" className="hover:text-cyan-400 transition">
+              Projects
+            </a>
+
+            <a href="#innovation" className="hover:text-cyan-400 transition">
+              Innovation
+            </a>
+
+            <a href="#contact" className="hover:text-cyan-400 transition">
+              Contact
+            </a>
+
+            <button className="mt-3 bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 rounded-xl hover:scale-105 transition shadow-lg shadow-cyan-500/30">
+              Explore
+            </button>
+
+          </div>
+
+        )}
+
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-16 text-center">
+
+        <div className="inline-block px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs md:text-sm mb-6 backdrop-blur-xl">
+          Modern Design • Creativity • Engineering
+        </div>
+
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight max-w-5xl mx-auto">
+
+          Building The
+
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+            {" "}Future of Technology
+          </span>
+
+        </h2>
+
+        <p className="max-w-3xl mx-auto mt-6 md:mt-8 text-base md:text-lg text-gray-300 leading-relaxed">
+
+          Explore modern innovation, creative engineering, artificial intelligence,
+          futuristic systems, and advanced computer science experiences designed for
+          the next generation.
+
+        </p>
+
+        <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-5">
+
+          <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold hover:scale-105 transition shadow-2xl shadow-cyan-500/30">
+            Start Journey
+          </button>
+
+          <button className="px-8 py-4 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition">
+            Watch Demo
+          </button>
+
+        </div>
+
+      </section>
+
+      {/* Projects Section */}
+      <section
+        id="projects"
+        className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10"
+      >
+
+        {/* LetDiscussTech */}
+        <div className="group relative overflow-hidden rounded-[2rem] border border-cyan-500/20 bg-white/5 backdrop-blur-2xl p-5 md:p-8 hover:scale-[1.02] transition duration-500 shadow-2xl shadow-cyan-500/10">
+
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-70"></div>
+
+          <div className="relative z-10">
+
+            <div className="flex items-center justify-between mb-6 md:mb-8">
+
+              <h3 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
+                LetDiscussTech
+              </h3>
+
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-cyan-500/20 border border-cyan-400/20 flex items-center justify-center text-xl md:text-2xl">
+                💡
+              </div>
+
+            </div>
+
+            <div className="relative h-[300px] md:h-[320px] rounded-[2rem] overflow-hidden border border-cyan-400/20 bg-black/60 backdrop-blur-2xl shadow-inner">
+
+              <div className="absolute top-0 left-0 right-0 h-10 bg-white/5 border-b border-white/10 flex items-center gap-2 px-4">
+
+                <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400"></div>
+
+              </div>
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 md:px-6">
+
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 blur-2xl opacity-50 absolute"></div>
+
+                <h4 className="relative text-2xl md:text-3xl font-bold mb-4">
+                  Interactive Tech Discussions
+                </h4>
+
+                <p className="relative text-sm md:text-base text-gray-300 leading-relaxed max-w-md">
+
+                  A futuristic platform where developers, engineers,
+                  students and innovators connect to share ideas,
+                  projects and modern technology experiences.
+
+                </p>
+
+                <button className="relative mt-8 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-105 transition">
+                  Explore Platform
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Tech21Century */}
+        <div className="group relative overflow-hidden rounded-[2rem] border border-purple-500/20 bg-white/5 backdrop-blur-2xl p-5 md:p-8 hover:scale-[1.02] transition duration-500 shadow-2xl shadow-purple-500/10">
+
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-70"></div>
+
+          <div className="relative z-10">
+
+            <div className="flex items-center justify-between mb-6 md:mb-8">
+
+              <h3 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-300 to-pink-500 bg-clip-text text-transparent">
+                Tech21Century
+              </h3>
+
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-purple-500/20 border border-purple-400/20 flex items-center justify-center text-xl md:text-2xl">
+                🚀
+              </div>
+
+            </div>
+
+            <div className="relative h-[300px] md:h-[320px] rounded-[2rem] overflow-hidden border border-purple-400/20 bg-black/60 backdrop-blur-2xl shadow-inner">
+
+              <div className="absolute top-0 left-0 right-0 h-10 bg-white/5 border-b border-white/10 flex items-center gap-2 px-4">
+
+                <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400"></div>
+
+              </div>
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 md:px-6">
+
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 blur-2xl opacity-50 absolute"></div>
+
+                <h4 className="relative text-2xl md:text-3xl font-bold mb-4">
+                  Next Generation Engineering
+                </h4>
+
+                <p className="relative text-sm md:text-base text-gray-300 leading-relaxed max-w-md">
+
+                  A modern engineering and computer science ecosystem
+                  focused on AI, robotics, innovation and futuristic systems.
+
+                </p>
+
+                <button className="relative mt-8 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 hover:scale-105 transition">
+                  Discover Innovation
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* Footer */}
+      <footer
+        id="contact"
+        className="relative z-10 border-t border-white/10 bg-white/5 backdrop-blur-xl mt-10 md:mt-20"
+      >
+
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+
+          <div className="text-center md:text-left">
+
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              FutureTech Hub
+            </h3>
+
+            <p className="text-gray-400 mt-2 text-sm md:text-base">
+              Designing the future of technology and innovation.
+            </p>
+
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 text-gray-300">
+
+            <a href="#" className="hover:text-cyan-400 transition">
+              Instagram
+            </a>
+
+            <a href="#" className="hover:text-cyan-400 transition">
+              LinkedIn
+            </a>
+
+            <a href="#" className="hover:text-cyan-400 transition">
+              GitHub
+            </a>
+
+          </div>
+
+        </div>
+
+      </footer>
+
     </div>
-  </div>
+  );
+}
 
-  <div class="divider"></div>
-
-  <!-- Right Section -->
-  <div class="section">
-    <div class="card">
-      <h1>Tech21Century</h1>
-      <p>
-        Building the future of engineering and digital systems with
-        immersive technology, robotics, AI systems, and 3D interactive learning.
-      </p>
-      <button class="btn">Join Future</button>
-    </div>
-  </div>
-
-</div>
-
-<!-- THREE.JS -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
-<script>
-// Scene setup
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <FutureTechProjectsPage />
 );
 
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.getElementById("bg"),
-  alpha: true
-});
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.z = 5;
-
-// Particles (3D floating tech dots)
-const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 1500;
-
-const posArray = new Float32Array(particlesCount * 3);
-
-for(let i=0; i<particlesCount * 3; i++){
-  posArray[i] = (Math.random() - 0.5) * 10;
-}
-
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.01,
-  color: 0x00f7ff
-});
-
-const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particlesMesh);
-
-// Animation
-function animate(){
-  requestAnimationFrame(animate);
-
-  particlesMesh.rotation.y += 0.001;
-  particlesMesh.rotation.x += 0.0005;
-
-  renderer.render(scene, camera);
-}
-animate();
-
-// Resize
-window.addEventListener('resize', ()=>{
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-});
 </script>
 
 </body>
