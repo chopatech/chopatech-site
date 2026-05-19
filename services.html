@@ -750,7 +750,7 @@ footer{
   </div>
 </section>
 
-<footer>
+<footer id="footer">
   © 2026 ChopaTech | Premium Digital Services
 </footer>
 
@@ -928,7 +928,8 @@ serviceGrid.innerHTML = services.map((s, i) => `
 sidebarLinks.innerHTML = `
   <a href="#heroBox">🏠 Home</a>
   ${services.map((s, i) => `<a href="#services" data-sid="${i}">${s.icon} ${s.title}</a>`).join('')}
-  <a href="#services">📞 Contact</a>
+  <a href="#services">✨ Premium Story</a>
+  <a href="#footer">📞 Contact</a>
 `;
 
 document.querySelectorAll('.service-card').forEach(card => {
@@ -951,17 +952,6 @@ document.querySelectorAll('.service-card').forEach(card => {
   });
 });
 
-document.querySelectorAll('[data-sid]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const i = Number(link.dataset.sid);
-    closeSidebar();
-    document.getElementById('services').scrollIntoView({behavior:'smooth'});
-    setTimeout(() => openModal(i), 650);
-  });
-});
-
-/* Reveal animations */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if(entry.isIntersecting) entry.target.classList.add('visible');
@@ -976,9 +966,11 @@ document.addEventListener('mousemove', (e) => {
   const y = (window.innerHeight / 2 - e.pageY) / 44;
   heroBox.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
 });
+
+/* Removed the scroll-follow translate effect from the hero box */
 window.addEventListener('scroll', () => {
   const y = window.scrollY || 0;
-  heroBox.style.transform += ` translateY(${Math.min(y * .04, 20)}px)`;
+  heroBox.style.transform = `rotateY(0deg) rotateX(0deg)`;
 });
 
 /* Loader */
@@ -1217,7 +1209,6 @@ function animate(){
   stars.rotation.y += 0.00014;
   belt.rotation.y += 0.0011;
 
-  const earthLike = planets[2];
   const moonAngle = t * 1.8;
   moon.position.set(
     Math.cos(moonAngle) * 3.0 + 19,
@@ -1225,7 +1216,6 @@ function animate(){
     Math.sin(moonAngle) * 3.0
   );
 
-  /* camera follows a real orbit path influenced by scroll */
   const orbitAngle = t * 0.08 + scrollProgress * Math.PI * 2.6;
   const orbitRadius = 82 - scrollProgress * 12;
   const targetX = Math.cos(orbitAngle) * orbitRadius + mouse.x * 6;
@@ -1237,12 +1227,10 @@ function animate(){
   camera.position.z += (targetZ - camera.position.z) * 0.03;
   camera.lookAt(0,0,0);
 
-  /* raycast planets */
   raycaster.setFromCamera(pointer, camera);
   const planetMeshes = planets.map(p => p.planet);
   const hits = raycaster.intersectObjects(planetMeshes, true);
   if(hits.length){
-    const planet = hits[0].object.userData.title ? hits[0].object : hits[0].object.parent;
     const idx = hits[0].object.userData.index ?? hits[0].object.parent?.userData?.index;
     if(typeof idx === 'number'){
       hoveredPlanet = idx;
@@ -1261,7 +1249,7 @@ animate();
 
 /* Resize */
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
