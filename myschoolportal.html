@@ -117,6 +117,13 @@ align-items:center;
 gap:18px;
 }
 
+/* RIGHT SIDE */
+.nav-right{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
 /* HAMBURGER */
 .menu-toggle{
 display:none;
@@ -197,6 +204,7 @@ transition:.3s;
 display:inline-flex;
 align-items:center;
 justify-content:center;
+white-space:nowrap;
 }
 
 .btn-primary{
@@ -216,6 +224,11 @@ color:white;
 
 .btn-outline:hover{
 background:rgba(255,255,255,.06);
+}
+
+/* TOP RIGHT BUTTON */
+.mobile-top-btn{
+display:none;
 }
 
 /* MOBILE MENU */
@@ -597,6 +610,10 @@ display:flex;
 display:none;
 }
 
+.mobile-top-btn{
+display:flex;
+}
+
 .footer-grid{
 grid-template-columns:1fr;
 }
@@ -617,6 +634,15 @@ padding:18px 5%;
 padding-top:140px;
 }
 
+.logo{
+font-size:1.1rem;
+}
+
+.mobile-top-btn .btn{
+padding:11px 18px;
+font-size:.9rem;
+}
+
 }
 
 </style>
@@ -628,6 +654,7 @@ padding-top:140px;
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
+
 <a href="#">Home</a>
 <a href="#courses">Courses</a>
 <a href="#features">Features</a>
@@ -636,6 +663,7 @@ padding-top:140px;
 
 <a href="myschoolportal-login.html" class="btn btn-outline">Login</a>
 <a href="myschoolportal-flow.html" class="btn btn-primary">Get Started</a>
+
 </div>
 
 <!-- Animated Background -->
@@ -648,9 +676,9 @@ padding-top:140px;
 <!-- Navbar -->
 <header class="navbar">
 
+<!-- LEFT -->
 <div class="nav-left">
 
-<!-- HAMBURGER -->
 <div class="menu-toggle" id="menuToggle">
 <span></span>
 <span></span>
@@ -661,6 +689,7 @@ padding-top:140px;
 
 </div>
 
+<!-- CENTER -->
 <nav>
 <a href="#">Home</a>
 <a href="#courses">Courses</a>
@@ -669,9 +698,22 @@ padding-top:140px;
 <a href="#contact">Contact</a>
 </nav>
 
+<!-- RIGHT -->
+<div class="nav-right">
+
+<!-- MOBILE TOP RIGHT BUTTON -->
+<div class="mobile-top-btn">
+<a href="myschoolportal-flow.html" class="btn btn-primary">
+Get Started
+</a>
+</div>
+
+<!-- DESKTOP BUTTONS -->
 <div class="nav-buttons">
 <a href="myschoolportal-login.html" class="btn btn-outline">Login</a>
 <a href="myschoolportal-flow.html" class="btn btn-primary">Get Started</a>
+</div>
+
 </div>
 
 </header>
@@ -728,6 +770,7 @@ MySchoolPortal is a futuristic online learning platform where students can learn
 <section id="courses" class="reveal">
 
 <h2 class="section-title">Popular Courses</h2>
+
 <p class="section-subtitle">
 Learn modern digital skills with interactive lessons and practical real-world projects.
 </p>
@@ -736,40 +779,61 @@ Learn modern digital skills with interactive lessons and practical real-world pr
 
 <div class="course-card">
 <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80')"></div>
+
 <div class="course-content">
 <div class="course-tag">Web Development</div>
+
 <h3>Full Stack Web Development</h3>
-<p>Master HTML, CSS, JavaScript, React and backend systems.</p>
+
+<p>
+Master HTML, CSS, JavaScript, React and backend systems.
+</p>
+
 <div class="course-meta">
 <span>48 Lessons</span>
 <span>Beginner</span>
 </div>
+
 </div>
 </div>
 
 <div class="course-card">
 <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&q=80')"></div>
+
 <div class="course-content">
 <div class="course-tag">Artificial Intelligence</div>
+
 <h3>AI & Automation</h3>
-<p>Build smart AI systems, chatbots and automation tools.</p>
+
+<p>
+Build smart AI systems, chatbots and automation tools.
+</p>
+
 <div class="course-meta">
 <span>35 Lessons</span>
 <span>Intermediate</span>
 </div>
+
 </div>
 </div>
 
 <div class="course-card">
 <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80')"></div>
+
 <div class="course-content">
 <div class="course-tag">Cybersecurity</div>
+
 <h3>Ethical Hacking & Security</h3>
-<p>Learn modern cybersecurity principles and protection systems.</p>
+
+<p>
+Learn modern cybersecurity principles and protection systems.
+</p>
+
 <div class="course-meta">
 <span>42 Lessons</span>
 <span>Advanced</span>
 </div>
+
 </div>
 </div>
 
@@ -781,6 +845,7 @@ Learn modern digital skills with interactive lessons and practical real-world pr
 <section id="features" class="reveal">
 
 <h2 class="section-title">Platform Features</h2>
+
 <p class="section-subtitle">
 Everything students need to learn smarter and build real-world skills.
 </p>
@@ -819,7 +884,9 @@ Everything students need to learn smarter and build real-world skills.
 <section class="ai-section reveal">
 
 <div class="ai-box">
+
 <h2>Meet Your AI Learning Assistant</h2>
+
 <p>
 Get coding help, homework support, project guidance, and personalized learning recommendations powered by AI.
 </p>
@@ -840,25 +907,33 @@ Get coding help, homework support, project guidance, and personalized learning r
 
 <div class="footer-about">
 <div class="logo">MySchoolPortal</div>
+
 <p>
 A modern AI-powered education platform helping students learn programming, technology, and digital skills through practical projects and intelligent learning systems.
 </p>
+
 </div>
 
 <div class="footer-links">
+
 <h3>Quick Links</h3>
+
 <a href="#">Home</a>
 <a href="#courses">Courses</a>
 <a href="#features">Features</a>
 <a href="#">Projects</a>
+
 </div>
 
 <div class="footer-services">
+
 <h3>Popular Topics</h3>
+
 <p>Web Development</p>
 <p>Cybersecurity</p>
 <p>Networking</p>
 <p>Artificial Intelligence</p>
+
 </div>
 
 </div>
@@ -900,23 +975,31 @@ const mobileMenu=document.getElementById('mobileMenu');
 const overlay=document.getElementById('overlay');
 
 menuToggle.addEventListener('click',()=>{
+
 menuToggle.classList.toggle('active');
 mobileMenu.classList.toggle('active');
 overlay.classList.toggle('active');
+
 });
 
 overlay.addEventListener('click',()=>{
+
 menuToggle.classList.remove('active');
 mobileMenu.classList.remove('active');
 overlay.classList.remove('active');
+
 });
 
 document.querySelectorAll('.mobile-menu a').forEach(link=>{
+
 link.addEventListener('click',()=>{
+
 menuToggle.classList.remove('active');
 mobileMenu.classList.remove('active');
 overlay.classList.remove('active');
+
 });
+
 });
 
 </script>
