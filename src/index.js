@@ -1,67 +1,115 @@
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
 
-    // =========================
-    // 1. SERVE WEBSITE (HTML)
-    // =========================
-    if (url.pathname === "/") {
-      return new Response(HTML_PAGE, {
-        headers: {
-          "Content-Type": "text/html",
-        },
-      });
-    }
+    const url = new URL(request.url);
 
     // =========================
     // REGISTER
     // =========================
-    if (url.pathname === "/api/register" && request.method === "POST") {
-      const { fullname, email, password } = await request.json();
+    if (
+      url.pathname === "/api/register" &&
+      request.method === "POST"
+    ) {
 
-      await env.DB.prepare(
-        "INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)"
-      )
-        .bind(fullname, email, password, "student")
+      try {
+
+        const {
+          fullname,
+          email,
+          password
+        } = await request.json();
+
+        const existing = await env.DB.prepare(
+          "SELECT * FROM users WHERE email = ?"
+        )
+        .bind(email)
+        .first();
+
+        if (existing) {
+
+          return Response.json({
+            success:false,
+            message:"Email already exists"
+          });
+
+        }
+
+        await env.DB.prepare(
+          "INSERT INTO users (fullname,email,password,role) VALUES (?,?,?,?)"
+        )
+        .bind(
+          fullname,
+          email,
+          password,
+          "student"
+        )
         .run();
 
-      return Response.json({ success: true, message: "User created" });
+        return Response.json({
+          success:true,
+          message:"Registration successful"
+        });
+
+      } catch (error) {
+
+        return Response.json({
+          success:false,
+          message:"Register failed"
+        });
+
+      }
+
     }
 
     // =========================
     // LOGIN
     // =========================
-    if (url.pathname === "/api/login" && request.method === "POST") {
-      const { email, password } = await request.json();
+    if (
+      url.pathname === "/api/login" &&
+      request.method === "POST"
+    ) {
 
-      const user = await env.DB.prepare(
-        "SELECT * FROM users WHERE email = ? AND password = ?"
-      )
+      try {
+
+        const {
+          email,
+          password
+        } = await request.json();
+
+        const user = await env.DB.prepare(
+          "SELECT * FROM users WHERE email = ? AND password = ?"
+        )
         .bind(email, password)
         .first();
 
-      if (!user) {
+        if (!user) {
+
+          return Response.json({
+            success:false,
+            message:"Invalid login"
+          });
+
+        }
+
         return Response.json({
-          success: false,
-          message: "Invalid login",
+          success:true,
+          user
         });
+
+      } catch (error) {
+
+        return Response.json({
+          success:false,
+          message:"Login failed"
+        });
+
       }
 
-      return Response.json({
-        success: true,
-        token: "demo-token",
-        user,
-      });
     }
 
-    // =========================
-    // DEFAULT RESPONSE
-    // =========================
-    return new Response("ChopaTech Worker Running API");
-  },
-};
+    return new Response(
+      "ChopaTech API Running"
+    );
 
-// =========================
-// HTML PAGE (PUT YOUR SITE HERE)
-// =========================
-const HTML_PAGE = `PASTE_YOUR_FULL_HTML_HERE`;
+  }
+}
