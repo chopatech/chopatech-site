@@ -1,9 +1,5 @@
 name = "chopatech-site"
-main = "src/index.js"
 compatibility_date = "2026-05-20"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "myschoolportal-db"
-database_id = "90ca3231-24cb-4f7e-a804-7d4a4f4e9419"
-remote = true
+[assets]
+directory = "./"
