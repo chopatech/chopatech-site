@@ -3,7 +3,7 @@ main = "src/index.js"
 compatibility_date = "2026-05-20"
 
 [[d1_databases]]
-binding = "myschoolportal_db"
+binding = "DB"
 database_name = "myschoolportal-db"
-database_id = "0b899678-27c6-4b4b-a6df-f7bb558ef662"
+database_id = "c0b8e0a2-edfb-4b71-a6be-b0d2e2df076e"
 remote = true
