@@ -4,7 +4,7 @@ export default {
     const url = new URL(request.url);
 
     // =========================
-    // REGISTER
+    // REGISTER API
     // =========================
     if (
       url.pathname === "/api/register" &&
@@ -28,8 +28,8 @@ export default {
         if (existing) {
 
           return Response.json({
-            success:false,
-            message:"Email already exists"
+            success: false,
+            message: "Email already exists"
           });
 
         }
@@ -46,15 +46,15 @@ export default {
         .run();
 
         return Response.json({
-          success:true,
-          message:"Registration successful"
+          success: true,
+          message: "Registration successful"
         });
 
       } catch (error) {
 
         return Response.json({
-          success:false,
-          message:"Register failed"
+          success: false,
+          message: "Server Error"
         });
 
       }
@@ -62,7 +62,7 @@ export default {
     }
 
     // =========================
-    // LOGIN
+    // LOGIN API
     // =========================
     if (
       url.pathname === "/api/login" &&
@@ -85,31 +85,33 @@ export default {
         if (!user) {
 
           return Response.json({
-            success:false,
-            message:"Invalid login"
+            success: false,
+            message: "Invalid Login"
           });
 
         }
 
         return Response.json({
-          success:true,
+          success: true,
           user
         });
 
       } catch (error) {
 
         return Response.json({
-          success:false,
-          message:"Login failed"
+          success: false,
+          message: "Server Error"
         });
 
       }
 
     }
 
-    return new Response(
-      "ChopaTech API Running"
-    );
+    // =========================
+    // DO NOT OVERRIDE WEBSITE
+    // =========================
+
+    return fetch(request);
 
   }
 }

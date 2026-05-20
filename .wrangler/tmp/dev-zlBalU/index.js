@@ -36,7 +36,7 @@ var src_default = {
       } catch (error) {
         return Response.json({
           success: false,
-          message: "Register failed"
+          message: "Server Error"
         });
       }
     }
@@ -52,7 +52,7 @@ var src_default = {
         if (!user) {
           return Response.json({
             success: false,
-            message: "Invalid login"
+            message: "Invalid Login"
           });
         }
         return Response.json({
@@ -62,13 +62,11 @@ var src_default = {
       } catch (error) {
         return Response.json({
           success: false,
-          message: "Login failed"
+          message: "Server Error"
         });
       }
     }
-    return new Response(
-      "ChopaTech API Running"
-    );
+    return fetch(request);
   }
 };
 
