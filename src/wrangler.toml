@@ -1,6 +1,6 @@
 name = "chopatech-site"
 
-main = "src/index.js"
+main = "src/workers.js"
 
 compatibility_date = "2026-05-20"
 
