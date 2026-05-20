@@ -1,0 +1,13 @@
+CREATE TABLE users (
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+fullname TEXT,
+
+email TEXT UNIQUE,
+
+password TEXT,
+
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+
+);
