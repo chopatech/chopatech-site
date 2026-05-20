@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -23,7 +23,6 @@ color:#fff;
 overflow:hidden;
 
 background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1920');
-
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
@@ -39,7 +38,7 @@ backdrop-filter:blur(2px);
 z-index:-1;
 }
 
-/* ================= SPLASH ================= */
+/* SPLASH */
 
 .splash{
 position:fixed;
@@ -138,8 +137,6 @@ opacity:1;
 }
 }
 
-/* Splash fade out */
-
 .splash.hide{
 animation:fadeOut 1s ease forwards;
 }
@@ -151,7 +148,7 @@ visibility:hidden;
 }
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .container{
 display:none;
@@ -193,7 +190,7 @@ margin-top:12px;
 line-height:1.7;
 }
 
-/* Inputs */
+/* INPUTS */
 
 select,input{
 
@@ -249,7 +246,7 @@ color:#00ffff;
 font-weight:700;
 }
 
-/* Buttons */
+/* BUTTONS */
 
 button{
 width:100%;
@@ -279,11 +276,25 @@ background:rgba(255,255,255,.08);
 color:#fff;
 }
 
+.google-btn{
+background:#fff;
+color:#111;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.google-btn img{
+width:22px;
+height:22px;
+}
+
 button:hover{
 transform:scale(1.03);
 }
 
-/* Steps */
+/* STEPS */
 
 .step{
 display:none;
@@ -305,7 +316,52 @@ transform:translateY(0);
 }
 }
 
-/* Dashboard */
+/* AUTH */
+
+.auth-tabs{
+display:flex;
+gap:10px;
+margin-bottom:18px;
+}
+
+.auth-tabs button{
+flex:1;
+padding:14px;
+border-radius:12px;
+background:#111d35;
+color:#fff;
+border:none;
+cursor:pointer;
+font-weight:700;
+transition:.3s;
+}
+
+.auth-tabs button.active{
+background:linear-gradient(90deg,#00ffff,#7f7fff);
+color:#04111f;
+}
+
+.divider{
+display:flex;
+align-items:center;
+margin:20px 0;
+color:#9fb2d7;
+font-size:.9rem;
+}
+
+.divider::before,
+.divider::after{
+content:'';
+flex:1;
+height:1px;
+background:rgba(255,255,255,.1);
+}
+
+.divider span{
+margin:0 10px;
+}
+
+/* DASHBOARD */
 
 .dashboard{
 display:none;
@@ -326,8 +382,6 @@ margin-top:20px;
 font-size:1.2rem;
 color:#c8d3ea;
 }
-
-/* Responsive */
 
 @media(max-width:600px){
 
@@ -364,7 +418,7 @@ Powered by ChopaTech
 
 </div>
 
-<!-- ONBOARDING -->
+<!-- MAIN -->
 
 <div class="container" id="container">
 
@@ -381,7 +435,6 @@ Powered by ChopaTech
 <select>
 
 <option>Select Language</option>
-
 <option>English</option>
 <option>Swahili</option>
 <option>French</option>
@@ -535,40 +588,102 @@ Visitors can:
 <div class="step" id="step5">
 
 <h2>
-🔐 Login
+🔐 Account Access
 </h2>
+
+<div class="auth-tabs">
+
+<button id="loginBtn" class="active" onclick="showLogin()">
+Login
+</button>
+
+<button id="registerBtn" onclick="showRegister()">
+Register
+</button>
+
+</div>
+
+<!-- LOGIN -->
+
+<div id="loginForm">
 
 <input
 type="email"
+id="loginEmail"
 placeholder="Enter Email"
 >
 
 <input
 type="password"
+id="loginPassword"
 placeholder="Enter Password"
 >
 
-<button class="primary" onclick="goDashboard('student')">
+<button class="primary" onclick="login()">
 Login
 </button>
 
+<div class="divider">
+<span>OR</span>
 </div>
 
-<!-- STEP 6 -->
+<button class="google-btn" onclick="googleLogin()">
 
-<div class="step" id="step6">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg">
 
-<h2>
-💳 Payment
-</h2>
+Continue with Google
 
-<p class="small">
-Complete payment to unlock premium student access
+</button>
+
+<p class="small" style="text-align:center;">
+No account? Register first
 </p>
 
-<button class="primary" onclick="pay()">
-Pay Now
+</div>
+
+<!-- REGISTER -->
+
+<div id="registerForm" style="display:none;">
+
+<input
+type="text"
+id="fullname"
+placeholder="Full Name"
+>
+
+<input
+type="email"
+id="registerEmail"
+placeholder="Enter Email"
+>
+
+<input
+type="password"
+id="registerPassword"
+placeholder="Create Password"
+>
+
+<button class="primary" onclick="register()">
+Create Account
 </button>
+
+<div class="divider">
+<span>OR</span>
+</div>
+
+<button class="google-btn" onclick="googleLogin()">
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg">
+
+Join with Google
+
+</button>
+
+<p class="small" style="text-align:center;">
+After registration you can login immediately
+</p>
+
+</div>
 
 </div>
 
@@ -593,24 +708,36 @@ Dashboard
 /* SPLASH */
 
 setTimeout(()=>{
-document.getElementById('splash').classList.add('hide');
+
+document.getElementById('splash')
+.classList
+.add('hide');
+
 },4000);
 
 setTimeout(()=>{
-document.getElementById('splash').style.display='none';
-document.getElementById('container').style.display='flex';
+
+document.getElementById('splash')
+.style
+.display='none';
+
+document.getElementById('container')
+.style
+.display='flex';
+
 },5000);
 
-/* Steps */
+/* STEPS */
 
 function next(step){
 
-for(let i=1;i<=6;i++){
+for(let i=1;i<=5;i++){
 
-document
-.getElementById('step'+i)
-.classList
-.remove('active');
+const el=document.getElementById('step'+i);
+
+if(el){
+el.classList.remove('active');
+}
 
 }
 
@@ -621,33 +748,9 @@ document
 
 }
 
-/* Visitor */
+/* VISITOR */
 
 function visitor(){
-
-goDashboard('visitor');
-
-}
-
-/* Student */
-
-function newStudent(){
-
-next(5);
-
-}
-
-/* Payment */
-
-function pay(){
-
-next(6);
-
-}
-
-/* Dashboard */
-
-function goDashboard(role){
 
 document.querySelector('.container')
 .style.display='none';
@@ -655,17 +758,192 @@ document.querySelector('.container')
 document.getElementById('dashboard')
 .style.display='block';
 
-if(role==='visitor'){
-
 document.getElementById('access')
 .innerHTML='Visitor mode activated with limited access';
 
-}else{
+}
 
-document.getElementById('access')
-.innerHTML='Premium Student Access Granted';
+/* NEW STUDENT */
+
+function newStudent(){
+
+next(5);
+
+showRegister();
 
 }
+
+/* LOGIN TAB */
+
+function showLogin(){
+
+document.getElementById('loginBtn')
+.classList.add('active');
+
+document.getElementById('registerBtn')
+.classList.remove('active');
+
+document.getElementById('loginForm')
+.style.display='block';
+
+document.getElementById('registerForm')
+.style.display='none';
+
+}
+
+/* REGISTER TAB */
+
+function showRegister(){
+
+document.getElementById('registerBtn')
+.classList.add('active');
+
+document.getElementById('loginBtn')
+.classList.remove('active');
+
+document.getElementById('registerForm')
+.style.display='block';
+
+document.getElementById('loginForm')
+.style.display='none';
+
+}
+
+/* REGISTER */
+
+async function register(){
+
+const fullname=document
+.getElementById('fullname')
+.value;
+
+const email=document
+.getElementById('registerEmail')
+.value;
+
+const password=document
+.getElementById('registerPassword')
+.value;
+
+if(!fullname || !email || !password){
+
+alert('Please fill all fields');
+
+return;
+
+}
+
+try{
+
+const response=await fetch('/api/register',{
+
+method:'POST',
+
+headers:{
+'Content-Type':'application/json'
+},
+
+body:JSON.stringify({
+fullname,
+email,
+password
+})
+
+});
+
+const data=await response.json();
+
+if(data.success){
+
+alert('Registration successful');
+
+document
+.getElementById('loginEmail')
+.value=email;
+
+showLogin();
+
+}else{
+
+alert(data.message || 'Registration failed');
+
+}
+
+}catch(error){
+
+alert('Network Error');
+
+}
+
+}
+
+/* LOGIN */
+
+async function login(){
+
+const email=document
+.getElementById('loginEmail')
+.value;
+
+const password=document
+.getElementById('loginPassword')
+.value;
+
+if(!email || !password){
+
+alert('Enter login credentials');
+
+return;
+
+}
+
+try{
+
+const response=await fetch('/api/login',{
+
+method:'POST',
+
+headers:{
+'Content-Type':'application/json'
+},
+
+body:JSON.stringify({
+email,
+password
+})
+
+});
+
+const data=await response.json();
+
+if(data.success){
+
+localStorage.setItem(
+'token',
+data.token || 'student-token'
+);
+
+window.location.href='dashboard.html';
+
+}else{
+
+alert('Invalid Login');
+
+}
+
+}catch(error){
+
+alert('Server Error');
+
+}
+
+}
+
+/* GOOGLE LOGIN */
+
+function googleLogin(){
+
+window.location.href='/api/google-login';
 
 }
 
