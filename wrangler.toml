@@ -1,0 +1,9 @@
+name = "chopatech-site"
+main = "src/index.js"
+compatibility_date = "2026-05-20"
+
+[[d1_databases]]
+binding = "myschoolportal_db"
+database_name = "myschoolportal-db"
+database_id = "0b899678-27c6-4b4b-a6df-f7bb558ef662"
+remote = true
